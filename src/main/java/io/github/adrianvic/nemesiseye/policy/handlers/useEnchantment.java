@@ -16,7 +16,7 @@ public class useEnchantment implements NodeHandler {
     public boolean allows(HumanEntity entity, PolicyNode node, Action action) {
         ItemStack item = entity.getInventory().getItemInMainHand();
         if (item.getItemMeta() == null) {
-            return true;
+            return !node.isWhitelist();
         }
 
         Map<Enchantment, Integer> enchants = item.getItemMeta().getEnchants();

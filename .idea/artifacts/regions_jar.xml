@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="regions:jar">
-    <output-path>$PROJECT_DIR$/../../testing/mcregions/plugins/</output-path>
-    <root id="archive" name="regions.jar">
-      <element id="module-output" name="regions.main" />
-      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
-    </root>
-  </artifact>
-</component>
