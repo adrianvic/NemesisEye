@@ -1,7 +1,8 @@
 package io.github.adrianvic.nemesiseye;
 
 import io.github.adrianvic.nemesiseye.policy.Action;
-import io.github.adrianvic.nemesiseye.policy.LocationPolicy;
+import io.github.adrianvic.nemesiseye.policy.policies.LocationPolicy;
+import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.util.BoundingBox;
@@ -38,22 +39,24 @@ public class Validator {
         return node.isWhitelist() != allowed;
     }
 
-    public static List<PolicyNode> getNodesForPolicies(List<LocationPolicy> policies) {
+    public static List<PolicyNode> getNodesForPolicies(List<Policy> policies) {
         List<PolicyNode> nodes = new ArrayList<>();
-        for (LocationPolicy p : policies) {
+        for (Policy p : policies) {
             nodes.addAll(p.nodes());
         }
         return nodes;
     }
 
-    public static List<LocationPolicy> getPoliciesForEntity(HumanEntity entity) {
-        List<LocationPolicy> lps = Config.getInstance().getLocationPolicies();
-        List<LocationPolicy> applyingLPS = new ArrayList<>();
-        for (LocationPolicy lp : lps) {
-            for (ArrayList<BoundingBox> boxes : lp.locations()) {
-                for (BoundingBox box : boxes) {
-                    if (box.contains(entity.getLocation().toVector())) {
-                        applyingLPS.add(lp);
+    public static List<Policy> getPoliciesForEntity(HumanEntity entity) {
+        List<Policy> ps = Config.getInstance().getPolicies();
+        List<Policy> applyingLPS = new ArrayList<>();
+        for (Policy p : ps) {
+            if (p instanceof LocationPolicy lp) {
+                for (ArrayList<BoundingBox> boxes : lp.locations()) {
+                    for (BoundingBox box : boxes) {
+                        if (box.contains(entity.getLocation().toVector())) {
+                            applyingLPS.add(lp);
+                        }
                     }
                 }
             }

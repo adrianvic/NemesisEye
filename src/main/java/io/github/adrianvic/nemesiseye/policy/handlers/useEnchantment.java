@@ -3,7 +3,6 @@ package io.github.adrianvic.nemesiseye.policy.handlers;
 import io.github.adrianvic.nemesiseye.DataShifter;
 import io.github.adrianvic.nemesiseye.policy.Action;
 import io.github.adrianvic.nemesiseye.policy.NodeHandler;
-import io.github.adrianvic.nemesiseye.policy.NodeValueParser;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
@@ -25,7 +24,7 @@ public class useEnchantment implements NodeHandler {
             return !node.isWhitelist();
         }
 
-        Map<String, String> valuesmap = NodeValueParser.parseValueToStringMap(node.values());
+        Map<String, String> valuesmap = DataShifter.parseValueToStringMap(node.values());
 
         for (Map.Entry<Enchantment, Integer> e : enchants.entrySet()) {
             String enchantment = e.getKey().getKey().getKey();

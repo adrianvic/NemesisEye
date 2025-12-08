@@ -1,7 +1,7 @@
 package io.github.adrianvic.nemesiseye.commands.sub;
 
 import io.github.adrianvic.nemesiseye.Config;
-import io.github.adrianvic.nemesiseye.policy.LocationPolicy;
+import io.github.adrianvic.nemesiseye.policy.Policy;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -16,18 +16,15 @@ public class PolicyInfo implements Subcommand {
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
-        List<LocationPolicy> policies = Config.getInstance().getLocationPolicies();
-        for (LocationPolicy lp : policies) {
-            if (lp.name().equals(strings[0])) {
-                String locations = lp.locations().toString();
-
+        List<Policy> policies = Config.getInstance().getPolicies();
+        for (Policy policy : policies) {
+            if (policy.name().equals(strings[0])) {
                 commandSender.sendMessage(String.format("""
                         Showing info for policy "%s%s%s":
                         Type: %s
-                        Locations: %s
                         Nodes: %s
                         %s
-                        """, ChatColor.UNDERLINE, lp.name(), ChatColor.RESET, "location", locations, lp.nodes().size(), lp.allowlist() ? "Is allowlist" : "Is blacklist"));
+                        """, ChatColor.UNDERLINE, policy.name(), ChatColor.RESET, "location", policy.nodes().size(), policy.allowlist() ? "Is allowlist" : "Is blacklist"));
             }
         }
         return true;
@@ -36,7 +33,7 @@ public class PolicyInfo implements Subcommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String[] args) {
         List<String> rstr = new ArrayList<>();
-        for (LocationPolicy p : Config.getInstance().getLocationPolicies()) {
+        for (Policy p : Config.getInstance().getPolicies()) {
             rstr.add(p.name());
         }
         return rstr;

@@ -1,19 +1,21 @@
 package io.github.adrianvic.nemesiseye;
 
-import io.github.adrianvic.nemesiseye.policy.LocationPolicy;
+import io.github.adrianvic.nemesiseye.policy.Policy;
+import io.github.adrianvic.nemesiseye.policy.PolicyParser;
+import io.github.adrianvic.nemesiseye.policy.PolicyParsers;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Config {
     private final static Config instance = new Config();
     private File file;
     private YamlConfiguration config;
 
-    private List<LocationPolicy> locationPolicies;
-//    private List<PermissionPolicy> permissionPolicies;
-//    private List<PlayerNamePolicy> playerNamePolicies;
+    private List<Policy> policies = new ArrayList<>();
 
     private Config() {
     }
@@ -33,7 +35,15 @@ public class Config {
             e.printStackTrace();
         }
 
-        locationPolicies = LocationPolicy.parseLocationPolicy(config.getMapList("Policies.Location"));
+        List<Map<?, ?>> rawPolicies = config.getMapList("Policies");
+        for (Map<?, ?> map : rawPolicies) {
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                if (entry.getKey() instanceof String k && entry.getValue() instanceof List<?> v) {
+                    List<Policy> parsed = PolicyParsers.get(k).parse(v);
+                    policies.addAll(parsed);
+                }
+            }
+        }
     }
 
     public void save() {
@@ -49,8 +59,8 @@ public class Config {
         save();
     }
 
-    public List<LocationPolicy> getLocationPolicies() {
-        return locationPolicies;
+    public List<Policy> getPolicies() {
+        return policies;
     }
 
     public static Config getInstance() {

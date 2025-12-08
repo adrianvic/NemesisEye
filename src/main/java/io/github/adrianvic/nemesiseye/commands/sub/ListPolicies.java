@@ -1,7 +1,7 @@
 package io.github.adrianvic.nemesiseye.commands.sub;
 
 import io.github.adrianvic.nemesiseye.Config;
-import io.github.adrianvic.nemesiseye.policy.LocationPolicy;
+import io.github.adrianvic.nemesiseye.policy.Policy;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class ListPolicies implements Subcommand {
     @Override
     public boolean execute(CommandSender commandSender, String[] args) {
         List<String> rstr = new ArrayList<>();
-        for (LocationPolicy p : Config.getInstance().getLocationPolicies()) {
+        for (Policy p : Config.getInstance().getPolicies()) {
             rstr.add(p.name());
         }
         commandSender.sendMessage(String.join(", ", rstr) + ".");
