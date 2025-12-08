@@ -1,0 +1,26 @@
+package io.github.adrianvic.nemesiseye.commands.sub;
+
+import io.github.adrianvic.nemesiseye.Config;
+import org.bukkit.command.CommandSender;
+
+import java.util.List;
+
+public class Reload implements Subcommand {
+
+    @Override
+    public boolean execute(CommandSender commandSender, String [] strings) {
+        Config.getInstance().load();
+        commandSender.sendMessage("Reloading...");
+        return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, String[] args) {
+        return List.of();
+    }
+
+    @Override
+    public String name() {
+        return "reload";
+    }
+}

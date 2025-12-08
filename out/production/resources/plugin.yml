@@ -1,14 +1,10 @@
-name: regions
+name: "Eye-of-Nemesis"
 version: '1.0-SNAPSHOT'
-main: io.github.adrianvic.regions.Regions
+main: io.github.adrianvic.nemesiseye.Nemesis
 api-version: '1.21'
 author: 'Adrian Victor'
-website: https://github.io/adrianvic
-description: Change what players can do based in custom criteria.
+website: "https://github.io/adrianvic/NemesisEye"
+description: "Change what players can do based in custom criteria."
 commands:
-  mrlistpolicies:
-    description: "Lists all loaded policies"
-    usage: "/mrlistpolicies"
-  mrpolicyinfo:
-    description: "Show info about a policy"
-    usage: "/mrpolicyinfo"
+  eye:
+    usage: "/eye <option> (help for all available options)"
