@@ -1,3 +1,8 @@
+> [!IMPORTANT]
+> This project is in a very early stage, expect bugs until `Release 1.0`.
+>
+>  Documentation will soon be moved from README.md.
+
 # Eye of Nemesis
 Eye of Nemesis is a plugin that allows server admins to write [policies](#Policies) that will deny or allow (black/whitelist) players to do specific things based on the value of [nodes](#Nodes).
 
