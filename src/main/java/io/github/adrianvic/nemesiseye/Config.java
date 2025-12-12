@@ -1,7 +1,6 @@
 package io.github.adrianvic.nemesiseye;
 
 import io.github.adrianvic.nemesiseye.policy.Policy;
-import io.github.adrianvic.nemesiseye.policy.PolicyParser;
 import io.github.adrianvic.nemesiseye.policy.PolicyParsers;
 import org.bukkit.configuration.file.YamlConfiguration;
 
