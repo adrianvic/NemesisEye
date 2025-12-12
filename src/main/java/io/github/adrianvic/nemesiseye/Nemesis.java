@@ -1,7 +1,8 @@
 package io.github.adrianvic.nemesiseye;
 
-import io.github.adrianvic.nemesiseye.commands.Eye;
+import io.github.adrianvic.nemesiseye.commands.EyeCore;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -17,9 +18,8 @@ public final class Nemesis extends JavaPlugin {
     public void onEnable() {
         instance = this;
         glim = loadGlim();
-        getServer().getPluginManager().registerEvents(new EventListener(), this);
         Config.getInstance().load();
-        getCommand("eye").setExecutor(new Eye());
+        glim.onLoad();
     }
 
     private String readImplVersion() {
@@ -59,9 +59,7 @@ public final class Nemesis extends JavaPlugin {
     public void onDisable() {
     }
 
-    public static Nemesis getInstance() {
-        return instance;
-    }
-
+    public static Nemesis getInstance() { return instance; }
     public Glimmer getGlimmer() { return glim; }
+    public PluginManager getPluginManager() { return this.getServer().getPluginManager(); }
 }

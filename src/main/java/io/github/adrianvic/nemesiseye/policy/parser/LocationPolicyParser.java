@@ -1,17 +1,19 @@
 package io.github.adrianvic.nemesiseye.policy.parser;
 
 import io.github.adrianvic.nemesiseye.DataShifter;
+import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.policy.*;
 import io.github.adrianvic.nemesiseye.policy.policies.LocationPolicy;
-import org.bukkit.Bukkit;
+import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.Location;
-import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class LocationPolicyParser implements PolicyParser {
+    private Glimmer glim = Nemesis.getInstance().getGlimmer();
+
     public List<Policy> parse(List<?> raw) {
         List<Policy> out = new ArrayList<>(raw.size());
         List<Map<?, ?>> parsedRawMap = DataShifter.parseValueToListOfMaps(raw);
@@ -33,12 +35,12 @@ public class LocationPolicyParser implements PolicyParser {
             List<PolicyNode> nodes = PolicyNode.parseNodes(nodeList, allowlist);
 
             // Parsing locations
-            List<ArrayList<BoundingBox>> locations = new ArrayList<>();
+            List<ArrayList<Glimmer.Box>> locations = new ArrayList<>();
 
             Object rawLocations = m.get("locations");
             List<?> groups = rawLocations instanceof List ? (List<?>) rawLocations : List.of();
 
-            ArrayList<BoundingBox> boxes = new ArrayList<>(groups.size());
+            ArrayList<Glimmer.Box> boxes = new ArrayList<>(groups.size());
 
             // Now iterate over regions
             for (Object rObj : groups) {
@@ -54,10 +56,10 @@ public class LocationPolicyParser implements PolicyParser {
                 double y2 = ((Number) c2.get("y")).doubleValue();
                 double z2 = ((Number) c2.get("z")).doubleValue();
 
-                Location loc1 = new Location(Bukkit.getWorlds().getFirst(), x1, y1, z1);
-                Location loc2 = new Location(Bukkit.getWorlds().getFirst(), x2, y2, z2);
+                Location loc1 = new Location(glim.getWorlds().getFirst(), x1, y1, z1);
+                Location loc2 = new Location(glim.getWorlds().getFirst(), x2, y2, z2);
 
-                boxes.add(BoundingBox.of(loc1, loc2));
+                boxes.add(Glimmer.Box.of(loc1, loc2));
             }
             locations.add(boxes);
 

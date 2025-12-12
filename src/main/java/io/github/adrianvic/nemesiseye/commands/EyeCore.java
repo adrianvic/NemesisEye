@@ -2,20 +2,14 @@ package io.github.adrianvic.nemesiseye.commands;
 
 import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.commands.sub.*;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.*;
 
-public class Eye implements CommandExecutor, TabCompleter {
-    private final Map<String, Subcommand> subs = new HashMap<>();
+public class EyeCore {
+    public final Map<String, Subcommand> subs = new HashMap<>();
 
-    public Eye() {
+    public EyeCore() {
         register(new Reload());
         register(new ListPolicies());
         register(new PolicyInfo());
@@ -26,14 +20,13 @@ public class Eye implements CommandExecutor, TabCompleter {
         subs.put(sub.name(), sub);
     }
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String [] strings) {
         if (strings.length == 0) {
             commandSender.sendMessage("""
-                    %sEye of Nemesis%s version %s
+                    Eye of Nemesis version %s
                     Usage: '/eye <command>'
                     Use '/eye help' for a list of available commands
-                    """.formatted(ChatColor.RED, ChatColor.RESET, Nemesis.getInstance().getDescription().getVersion()));
+                    """.formatted(Nemesis.getInstance().getDescription().getVersion()));
         } else {
             Subcommand sub = subs.get(strings[0].toLowerCase());
             if (sub == null) {
@@ -45,8 +38,7 @@ public class Eye implements CommandExecutor, TabCompleter {
         return false;
     }
 
-    @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] strings) {
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String [] strings) {
         if (strings.length == 1) {
             return new ArrayList<>(subs.keySet());
         }
@@ -56,4 +48,6 @@ public class Eye implements CommandExecutor, TabCompleter {
         }
         return List.of();
     }
+
+    public Map<String, Subcommand> getSubs() { return subs; };
 }

@@ -1,41 +1,27 @@
 package io.github.adrianvic.nemesiseye.policy.handlers;
 
 import io.github.adrianvic.nemesiseye.DataShifter;
+import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.policy.Action;
 import io.github.adrianvic.nemesiseye.policy.NodeHandler;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
-import org.bukkit.enchantments.Enchantment;
+import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
-
 public class useEnchantment implements NodeHandler {
+    private Glimmer glim = Nemesis.getInstance().getGlimmer();
+
     @Override
     public boolean allows(HumanEntity entity, PolicyNode node, Action action) {
-        ItemStack item = entity.getInventory().getItemInMainHand();
-        if (item.getItemMeta() == null) {
-            return !node.isWhitelist();
-        }
+        ItemStack item = glim.getItemInMainHandHumanEntity(entity);
 
-        Map<Enchantment, Integer> enchants = item.getItemMeta().getEnchants();
+        if (!glim.hasItemMeta(item)) return true;
+        if (!glim.hasAnyEnchantment(item)) return true;
 
-        if (enchants.isEmpty()) {
-            return !node.isWhitelist();
-        }
+        boolean matches = glim.hasEnchantment(item,
+                DataShifter.parseValueToStringMap(node.values()));
 
-        Map<String, String> valuesmap = DataShifter.parseValueToStringMap(node.values());
-
-        for (Map.Entry<Enchantment, Integer> e : enchants.entrySet()) {
-            String enchantment = e.getKey().getKey().getKey();
-            String level = e.getValue().toString();
-
-            for (Map.Entry<String, String> entry : valuesmap.entrySet()) {
-                if (DataShifter.safeMatches(entry.getKey().trim(), enchantment) && DataShifter.safeMatches(entry.getValue().trim(), level)) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return matches ? node.isWhitelist() : !node.isWhitelist();
     }
 }
