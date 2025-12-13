@@ -18,8 +18,8 @@ public final class Nemesis extends JavaPlugin {
     public void onEnable() {
         instance = this;
         glim = loadGlim();
-        Config.getInstance().load();
         glim.onLoad();
+        Config.getInstance().load();
     }
 
     private String readImplVersion() {

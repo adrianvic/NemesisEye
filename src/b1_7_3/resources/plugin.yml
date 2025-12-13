@@ -1,5 +1,8 @@
 name: "Eye-of-Nemesis"
-version: '1.0.2-SNAPSHOT'
+version: '1.0.3-SNAPSHOT'
 main: io.github.adrianvic.nemesiseye.Nemesis
 author: 'Adrian Victor'
 description: "Change what players can do based in custom criteria."
+commands:
+  eye:
+    description: "Run /eye help to see all available commands."

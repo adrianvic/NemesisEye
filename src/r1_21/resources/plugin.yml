@@ -1,5 +1,5 @@
 name: "Eye-of-Nemesis"
-version: '1.0.2-SNAPSHOT'
+version: '1.0.3-SNAPSHOT'
 main: io.github.adrianvic.nemesiseye.Nemesis
 api-version: '1.21'
 author: 'Adrian Victor'
