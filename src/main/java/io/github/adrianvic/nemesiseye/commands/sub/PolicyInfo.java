@@ -20,11 +20,11 @@ public class PolicyInfo implements Subcommand {
         for (Policy policy : policies) {
             if (policy.name().equals(strings[0])) {
                 commandSender.sendMessage(String.format("""
-                        Showing info for policy "%s%s%s":
+                        Showing info for policy "%s":
                         Type: %s
                         Nodes: %s
                         %s
-                        """, ChatColor.UNDERLINE, policy.name(), ChatColor.RESET, "location", policy.nodes().size(), policy.allowlist() ? "Is allowlist" : "Is blacklist"));
+                        """, policy.name(), "location", policy.nodes().size(), policy.allowlist() ? "Is allowlist" : "Is blacklist"));
             }
         }
         return true;

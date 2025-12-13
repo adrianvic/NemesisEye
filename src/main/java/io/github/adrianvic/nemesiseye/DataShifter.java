@@ -21,19 +21,23 @@ public class DataShifter {
         return result;
     }
 
-    public static Map<String, String> parseValueToStringMap(List<Object> values) {
-        Map<String, String> result = new HashMap<>();
+    public static Map<String,String> parseValueToStringMap(List<Object> raw) {
+        Map<String,String> out = new HashMap<>();
 
-        for (Object o : values) {
-            if (o instanceof Map<?, ?> raw) {
-                for (Map.Entry<?, ?> e : raw.entrySet()) {
-                    if (e.getKey() instanceof String k && e.getValue() instanceof String v) {
-                        result.put(k, v);
-                    }
+        for (Object o : raw) {
+            if (o instanceof Map<?,?> map) {
+                for (Map.Entry<?,?> e : map.entrySet()) {
+                    out.put(String.valueOf(e.getKey()), String.valueOf(e.getValue()));
+                }
+            } else if (o instanceof String s) {
+
+                String[] parts = s.split(":", 2);
+                if (parts.length == 2) {
+                    out.put(parts[0].trim(), parts[1].trim());
                 }
             }
         }
-        return result;
+        return out;
     }
 
     public static List<Map<?, ?>> parseValueToListOfMaps(List<?> values) {

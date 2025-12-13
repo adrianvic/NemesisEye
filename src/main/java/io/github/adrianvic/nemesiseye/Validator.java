@@ -1,16 +1,17 @@
 package io.github.adrianvic.nemesiseye;
 
 import io.github.adrianvic.nemesiseye.policy.Action;
-import io.github.adrianvic.nemesiseye.policy.policies.LocationPolicy;
 import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
+import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.util.BoundingBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Validator {
+    private final static Glimmer glim = Nemesis.getInstance().getGlimmer();
+
     public static boolean canInteract(HumanEntity entity) {
         return checkAgainstEntity(entity, Action.INTERACT);
     }
@@ -30,13 +31,11 @@ public class Validator {
         for (PolicyNode n : nodes) {
             if (!checkAgainstNode(entity, n, action)) return false;
         }
-
         return true;
     }
 
     public static boolean checkAgainstNode(HumanEntity entity, PolicyNode node, Action action) {
-        boolean allowed = node.getHandler().allows(entity, node, action);
-        return node.isWhitelist() != allowed;
+        return node.getHandler().allows(entity, node, action);
     }
 
     public static List<PolicyNode> getNodesForPolicies(List<Policy> policies) {
@@ -49,18 +48,6 @@ public class Validator {
 
     public static List<Policy> getPoliciesForEntity(HumanEntity entity) {
         List<Policy> ps = Config.getInstance().getPolicies();
-        List<Policy> applyingLPS = new ArrayList<>();
-        for (Policy p : ps) {
-            if (p instanceof LocationPolicy lp) {
-                for (ArrayList<BoundingBox> boxes : lp.locations()) {
-                    for (BoundingBox box : boxes) {
-                        if (box.contains(entity.getLocation().toVector())) {
-                            applyingLPS.add(lp);
-                        }
-                    }
-                }
-            }
-        }
-        return applyingLPS;
+        return glim.getApplyingPoliciesForEntity(entity, ps);
     }
 }
