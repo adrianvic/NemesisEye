@@ -20,6 +20,6 @@ public class attackWith implements NodeHandler {
                 if (matches) return node.isWhitelist();
             }
         }
-        return !node.isWhitelist();
+        return true;
     }
 }
