@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class b1_7_3 implements Glimmer {
     JavaPlugin plugin;
     PluginManager pm;

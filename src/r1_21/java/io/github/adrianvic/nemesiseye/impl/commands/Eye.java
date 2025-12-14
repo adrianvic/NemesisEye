@@ -1,7 +1,6 @@
 package io.github.adrianvic.nemesiseye.impl.commands;
 
 import io.github.adrianvic.nemesiseye.commands.EyeCore;
-import io.github.adrianvic.nemesiseye.commands.sub.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class Eye implements CommandExecutor, TabCompleter {
-    private EyeCore core;
+    private final EyeCore core;
 
     public Eye() {
         core = new EyeCore();

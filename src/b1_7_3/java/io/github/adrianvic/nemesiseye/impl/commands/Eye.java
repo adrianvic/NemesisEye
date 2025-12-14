@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class Eye implements CommandExecutor {
-    private EyeCore core;
+    private final EyeCore core;
 
     public Eye() {
         core = new EyeCore();

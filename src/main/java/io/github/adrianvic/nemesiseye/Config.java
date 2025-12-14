@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Config {
     private static Config instance = new Config();
-    private Glimmer glim = Nemesis.getInstance().getGlimmer();
+    private final Glimmer glim = Nemesis.getInstance().getGlimmer();
     private File file;
 
     private List<Policy> policies = new ArrayList<>();
@@ -17,10 +17,10 @@ public class Config {
     private Config() {}
 
     public void load() {
-        List<Policy> newPolicies = glim.loadPoliciesFromFile(glim.loadConfigFile());
-        policies = newPolicies;
+        policies = glim.loadPoliciesFromFile(glim.loadConfigFile());
     }
-
+// TODO: Implement config saving
+//
 //    public void save() {
 //        try {
 //            config.save(file);

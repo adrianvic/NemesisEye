@@ -1,6 +1,5 @@
 package io.github.adrianvic.nemesiseye;
 
-import io.github.adrianvic.nemesiseye.commands.EyeCore;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;

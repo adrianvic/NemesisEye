@@ -1,6 +1,5 @@
 package io.github.adrianvic.nemesiseye.impl;
 
-import io.github.adrianvic.nemesiseye.DataShifter;
 import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.impl.commands.Eye;
 import io.github.adrianvic.nemesiseye.policy.Policy;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class r1_21 implements Glimmer {
     @Override
     public File loadConfigFile() {
@@ -86,10 +86,7 @@ public class r1_21 implements Glimmer {
 
     @Override
     public boolean hasItemMeta(ItemStack item) {
-        if (item.getItemMeta() == null) {
-            return false;
-        }
-        return true;
+        return item.getItemMeta() != null;
     }
 
     @Override

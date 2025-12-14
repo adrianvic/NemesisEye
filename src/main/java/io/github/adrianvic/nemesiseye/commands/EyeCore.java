@@ -49,5 +49,5 @@ public class EyeCore {
         return List.of();
     }
 
-    public Map<String, Subcommand> getSubs() { return subs; };
+    public Map<String, Subcommand> getSubs() { return subs; }
 }

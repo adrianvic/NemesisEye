@@ -10,7 +10,7 @@ import org.bukkit.entity.HumanEntity;
 
 public class useItem implements NodeHandler {
 
-    private Glimmer glim = Nemesis.getInstance().getGlimmer();
+    private final Glimmer glim = Nemesis.getInstance().getGlimmer();
 
     @Override
     public boolean allows(HumanEntity entity, PolicyNode node, Action action) {

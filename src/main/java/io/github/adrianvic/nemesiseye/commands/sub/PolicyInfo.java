@@ -2,7 +2,6 @@ package io.github.adrianvic.nemesiseye.commands.sub;
 
 import io.github.adrianvic.nemesiseye.Config;
 import io.github.adrianvic.nemesiseye.policy.Policy;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
