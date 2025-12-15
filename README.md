@@ -1,7 +1,10 @@
 <img width="1280" height="640" alt="eye_of_nemesis_social_cover" src="https://github.com/user-attachments/assets/a24bc92f-4dc2-4594-93c9-d056130f9695" />
 
-[![Build status badge](https://github.com/adrianvic/NemesisEye/actions/workflows/build.yml/badge.svg)](https://github.com/adrianvic/NemesisEye/actions/workflows/build.yml)
 ![Modrinth link](https://img.shields.io/badge/Modrinth-Black?style=social&logo=Modrinth&logoColor=green&link=https%3A%2F%2Fmodrinth.com%2Fplugin%2Feye-of-nemesis%2F)
+[![Build status badge](https://github.com/adrianvic/NemesisEye/actions/workflows/build.yml/badge.svg)](https://github.com/adrianvic/NemesisEye/actions/workflows/build.yml)
+![GitHub Release](https://img.shields.io/github/v/release/adrianvic/NemesisEye?include_prereleases&style=flat&label=Latest%20Release)
+![English Wiki Badge](https://img.shields.io/badge/English-White?style=flat-square&label=Wiki&color=black&link=https%3A%2F%2Fgithub.com%2Fadrianvic%2FNemesisEye%2Fwiki)
+![Portuguese Wiki Badge](https://img.shields.io/badge/Portuguese-White?style=flat-square&label=Wiki&color=black&link=https%3A%2F%2Fmgr.rf.gd%2Fw%2FEye_of_Nemesis)
 
 # Eye of Nemesis
 Eye of Nemesis is a plugin that allows server admins to write policies that will deny or allow (black/whitelist) players to do specific things based on the value of nodes.
