@@ -12,7 +12,7 @@ jobs:
       - name: Setup Java enviroment
         uses: actions/setup-java@v5.1.0
         with:
-          distribution: termurin
+          distribution: temurin
           java-version: 21
         
       - name: Setup Gradle
