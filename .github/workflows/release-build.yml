@@ -2,8 +2,8 @@ name: Release Build
 
 on:
   release:
-    types: [created, published]
-
+    types: [published]
+  
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
