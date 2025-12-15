@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.adrianvic"
-version = "1.0.3-SNAPSHOT"
+version = System.getenv("NEMESIS_VERSION_NAME")?.take(7) ?: "1.0.3-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -23,6 +23,14 @@ val mcVersions = listOf(
 /* ----------------------------------------- */
 /*       CREATE SOURCE SET PER VERSION       */
 /* ----------------------------------------- */
+
+tasks.withType<ProcessResources> {
+    inputs.property("version", project.version)
+
+    filesMatching("plugin.yml") {
+        expand("version" to project.version)
+    }
+}
 
 mcVersions.forEach { ver ->
     val ss = sourceSets.create(ver) {
@@ -74,6 +82,10 @@ mcVersions.forEach { ver ->
         }
 
     }
+}
+
+tasks.register("buildAll") {
+    dependsOn(tasks.withType<Jar>())
 }
 
 /* ----------------------------------------- */
