@@ -5,6 +5,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEMESIS_VERSION_NAME: "autobuild-${{ github.sha }}"
+      NEMESIS_BUILD_CHANNEL: "autobuild"
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.1
@@ -31,6 +34,3 @@ jobs:
         uses: actions/upload-artifact@v6.0.0
         with:
           path: build/libs/*.jar
-          env:
-            NEMESIS_VERSION_NAME: "autobuild-${{ github.sha }}"
-            NEMESIS_BUILD_CHANNEL: "autobuild"
