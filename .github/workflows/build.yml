@@ -1,6 +1,13 @@
 name: Build
 
-on: [push]
+on:
+  push:
+    paths:
+      - 'src/**'
+      - '.github/**'
+      - 'build.gradle.kts'
+      - 'gradle.properties'
+      - 'settings.gradle'
 
 jobs:
   build:
