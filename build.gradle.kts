@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.adrianvic"
-version = System.getenv("NEMESIS_VERSION_NAME")?.take(7) ?: "1.0.3-SNAPSHOT"
+version = System.getenv("NEMESIS_VERSION_NAME") ?: "1.0.3-SNAPSHOT"
 
 repositories {
     mavenCentral()
