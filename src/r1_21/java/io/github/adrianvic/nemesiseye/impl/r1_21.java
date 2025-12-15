@@ -8,6 +8,7 @@ import io.github.adrianvic.nemesiseye.policy.policies.LocationPolicy;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
@@ -82,6 +83,11 @@ public class r1_21 implements Glimmer {
     @Override
     public ItemStack getItemInMainHandHumanEntity(HumanEntity entity) {
         return entity.getInventory().getItemInMainHand();
+    }
+
+    @Override
+    public void sendMessage(CommandSender commandSender, String text) {
+        commandSender.sendMessage(text);
     }
 
     @Override

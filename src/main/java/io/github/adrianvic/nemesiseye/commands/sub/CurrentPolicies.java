@@ -10,11 +10,6 @@ import java.util.List;
 
 public class CurrentPolicies implements Subcommand {
     @Override
-    public String name() {
-        return "currentpolicies";
-    }
-
-    @Override
     public boolean execute(CommandSender commandSender, String[] args) {
         List<Policy> policies = Validator.getPoliciesForEntity((HumanEntity) commandSender);
         List<String> pstrings = new ArrayList<>();
@@ -33,5 +28,15 @@ public class CurrentPolicies implements Subcommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String[] args) {
         return List.of();
+    }
+
+    @Override
+    public String description() {
+        return "Lists policies appliying to you.";
+    }
+
+    @Override
+    public String usage() {
+        return "";
     }
 }

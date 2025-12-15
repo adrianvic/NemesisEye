@@ -8,12 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListPolicies implements Subcommand {
-
-    @Override
-    public String name() {
-        return "listpolicies";
-    }
-
     @Override
     public boolean execute(CommandSender commandSender, String[] args) {
         List<String> rstr = new ArrayList<>();
@@ -27,5 +21,15 @@ public class ListPolicies implements Subcommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String[] args) {
         return List.of();
+    }
+
+    @Override
+    public String description() {
+        return "Lists all loaded policies.";
+    }
+
+    @Override
+    public String usage() {
+        return "";
     }
 }

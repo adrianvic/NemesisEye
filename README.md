@@ -3,12 +3,11 @@
 [![Build status badge](https://github.com/adrianvic/NemesisEye/actions/workflows/build.yml/badge.svg)](https://github.com/adrianvic/NemesisEye/actions/workflows/build.yml)
 ![Modrinth link](https://img.shields.io/badge/Modrinth-Black?style=social&logo=Modrinth&logoColor=green&link=https%3A%2F%2Fmodrinth.com%2Fplugin%2Feye-of-nemesis%2F)
 
+> [!IMPORTANT]
+> This project is in a early stage, please report any bug you find.
+
 # Eye of Nemesis
 Eye of Nemesis is a plugin that allows server admins to write policies that will deny or allow (black/whitelist) players to do specific things based on the value of nodes.
-
-## Warnings
-- This plugin is in a very early stage.
-- Even though running `/eye` will tell you to run `/eye help` to list all available commands, this is not implemented yet, however all commands are available as tab-complete of `/eye`.
 
 ## Motivations
 I made this plugin as an effort to preserve a village from my private server. Originally from beta 1.7.3 Betalands server, then transferred to RetroMC, and then finally we downloaded the chunks to merge into our server, I was afraid it would not have the same feeling after all the updates, so I had the idea to make a plugin that can block the newer features.

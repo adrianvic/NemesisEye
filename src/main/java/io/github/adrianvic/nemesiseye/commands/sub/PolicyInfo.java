@@ -1,24 +1,23 @@
 package io.github.adrianvic.nemesiseye.commands.sub;
 
 import io.github.adrianvic.nemesiseye.Config;
+import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.policy.Policy;
+import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PolicyInfo implements Subcommand {
-    @Override
-    public String name() {
-        return "policyinfo";
-    }
+    private final Glimmer glim = Nemesis.getInstance().getGlimmer();
 
     @Override
     public boolean execute(CommandSender commandSender, String[] strings) {
         List<Policy> policies = Config.getInstance().getPolicies();
         for (Policy policy : policies) {
             if (policy.name().equals(strings[0])) {
-                commandSender.sendMessage(String.format("""
+                glim.sendMessage(commandSender, String.format("""
                         Showing info for policy "%s":
                         Type: %s
                         Nodes: %s
@@ -36,5 +35,15 @@ public class PolicyInfo implements Subcommand {
             rstr.add(p.name());
         }
         return rstr;
+    }
+
+    @Override
+    public String description() {
+        return "Shows info for a specified policy.";
+    }
+
+    @Override
+    public String usage() {
+        return "<policy>";
     }
 }

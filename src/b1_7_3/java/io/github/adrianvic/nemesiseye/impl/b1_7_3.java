@@ -7,6 +7,7 @@ import io.github.adrianvic.nemesiseye.policy.PolicyParsers;
 import io.github.adrianvic.nemesiseye.policy.policies.LocationPolicy;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -87,6 +88,14 @@ public class b1_7_3 implements Glimmer {
     @Override
     public ItemStack getItemInMainHandHumanEntity(HumanEntity entity) {
         return entity.getItemInHand();
+    }
+
+    @Override
+    public void sendMessage(CommandSender commandSender, String text) {
+        String[] lines = text.split("\\r?\\n");
+        for (String line : lines) {
+            commandSender.sendMessage(line);
+        }
     }
 
     @Override

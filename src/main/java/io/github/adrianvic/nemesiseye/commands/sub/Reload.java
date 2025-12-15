@@ -6,7 +6,6 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public class Reload implements Subcommand {
-
     @Override
     public boolean execute(CommandSender commandSender, String [] strings) {
         Config.getInstance().load();
@@ -20,7 +19,12 @@ public class Reload implements Subcommand {
     }
 
     @Override
-    public String name() {
-        return "reload";
+    public String description() {
+        return "Reloads the plugin configuration file.";
+    }
+
+    @Override
+    public String usage() {
+        return "";
     }
 }
