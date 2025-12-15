@@ -38,7 +38,3 @@ jobs:
           files: build/libs/*.jar
           tag_name: ${{ github.ref_name }}
           name: ${{ github.ref_name }}
-          body: |
-            Automated build for release **${{ github.ref_name }}**.
-            Includes the following artifacts:
-            - `$(ls build/libs/*.jar | tr '\n' '\n' | sed 's/^/  - /')`
