@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.adrianvic"
-version = System.getenv("NEMESIS_VERSION_NAME") ?: "1.0.3-SNAPSHOT"
+version = System.getenv("NEMESIS_VERSION_NAME") ?: "unknown"
 
 repositories {
     mavenCentral()
@@ -77,7 +77,8 @@ mcVersions.forEach { ver ->
 
         manifest {
             attributes(
-                "Nemesis-Impl-Version" to ver
+                "Nemesis-Impl-Version" to ver,
+                "Nemesis-Environment" to (System.getenv("NEMESIS_BUILD_CHANNEL") ?: "dev")
             )
         }
 

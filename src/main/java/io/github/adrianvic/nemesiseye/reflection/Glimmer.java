@@ -20,7 +20,6 @@ public interface Glimmer {
     // Configuration
     File loadConfigFile();
     List<Policy> loadPoliciesFromFile(File file);
-    List<Policy> getApplyingPoliciesForEntity(HumanEntity entity, List<Policy> policies);
 
     // Items
     boolean hasItemMeta(ItemStack item);
@@ -53,7 +52,6 @@ public interface Glimmer {
                     && v.getY() >= y1 && v.getY() <= y2
                     && v.getZ() >= z1 && v.getZ() <= z2;
         }
-
 
         public static Box of(Location loc1, Location loc2) { return new Box(loc1.getX(), loc1.getY(), loc1.getZ(), loc2.getX(), loc2.getY(), loc2.getZ()); }
     }

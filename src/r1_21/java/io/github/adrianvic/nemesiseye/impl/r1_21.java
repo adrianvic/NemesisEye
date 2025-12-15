@@ -4,7 +4,6 @@ import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.impl.commands.Eye;
 import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.policy.PolicyParsers;
-import io.github.adrianvic.nemesiseye.policy.policies.LocationPolicy;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -45,32 +44,14 @@ public class r1_21 implements Glimmer {
 
         List<Map<?, ?>> rawPolicies = config.getMapList("Policies");
         List<Policy> allPolicies = new ArrayList<>();
-        for (Map<?, ?> map : rawPolicies) {
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                if (entry.getKey() instanceof String k && entry.getValue() instanceof List<?> v) {
-                    List<Policy> parsed = PolicyParsers.get(k).parse(v);
-                    allPolicies.addAll(parsed);
-                }
-            }
-        }
-        return allPolicies;
-    }
 
-    @Override
-    public List<Policy> getApplyingPoliciesForEntity(HumanEntity entity, List<Policy> policies) {
-        List<Policy> applyingLPS = new ArrayList<>();
-        for (Policy p : policies) {
-            if (p instanceof LocationPolicy lp) {
-                for (ArrayList<Box> boxes : lp.locations()) {
-                    for (Box box : boxes) {
-                        if (box.contains(entity.getLocation().toVector())) {
-                            applyingLPS.add(lp);
-                        }
-                    }
-                }
+        for (Map<?, ?> policyMap : rawPolicies) {
+            if (policyMap.get("type") != null && policyMap.get("type") instanceof String type) {
+                allPolicies.add(PolicyParsers.get(type).parse(policyMap));
             }
         }
-        return applyingLPS;
+
+        return allPolicies;
     }
 
     @Override

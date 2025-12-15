@@ -4,6 +4,7 @@ import io.github.adrianvic.nemesiseye.Config;
 import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -18,11 +19,11 @@ public class PolicyInfo implements Subcommand {
         for (Policy policy : policies) {
             if (policy.name().equals(strings[0])) {
                 glim.sendMessage(commandSender, String.format("""
-                        Showing info for policy "%s":
+                        Showing info for policy %s%s%s:
                         Type: %s
                         Nodes: %s
                         %s
-                        """, policy.name(), "location", policy.nodes().size(), policy.allowlist() ? "Is allowlist" : "Is blacklist"));
+                        """, ChatColor.GREEN, policy.name(), ChatColor.WHITE, "location", policy.nodes().size(), policy.allowlist() ? "Is allowlist" : "Is blacklist"));
             }
         }
         return true;

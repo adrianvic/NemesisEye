@@ -7,7 +7,7 @@
 [![Portuguese Wiki Badge](https://img.shields.io/badge/Portuguese-White?style=flat-square&label=Wiki&color=black)](https://mgr.rf.gd/w/Eye_of_Nemesis)
 
 > [!IMPORTANT]
-> This project is in a early stage, please report any bug you find.
+> This project is in an early stage, please report any bug you find.
 
 # Eye of Nemesis
 Eye of Nemesis is a plugin that allows server admins to write policies that will deny or allow (black/whitelist) players to do specific things based on the value of nodes.

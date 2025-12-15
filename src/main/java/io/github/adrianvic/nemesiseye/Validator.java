@@ -48,6 +48,10 @@ public class Validator {
 
     public static List<Policy> getPoliciesForEntity(HumanEntity entity) {
         List<Policy> ps = Config.getInstance().getPolicies();
-        return glim.getApplyingPoliciesForEntity(entity, ps);
+        List<Policy> result = new ArrayList<>();
+        for (Policy policy : ps) {
+            if (policy.applies(entity)) result.add(policy);
+        }
+        return result;
     }
 }

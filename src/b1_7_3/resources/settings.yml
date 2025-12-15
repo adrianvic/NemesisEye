@@ -1,0 +1,9 @@
+Policies:
+    # NO SPACES
+    - name: "Block-illegal-items"
+      type: global # global / location / permission / list of types
+      allowList: false # Will deny anything that's not allowed by the nodes if set to true
+      nodes:
+        - useItem:
+            value:
+              - SAND

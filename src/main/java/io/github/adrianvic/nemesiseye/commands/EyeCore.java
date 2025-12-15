@@ -3,7 +3,7 @@ package io.github.adrianvic.nemesiseye.commands;
 import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.commands.sub.*;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
-import io.github.adrianvic.nemesiseye.commands.Commands;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import java.util.*;
@@ -16,10 +16,10 @@ public class EyeCore {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String [] strings) {
         if (strings.length == 0) {
             glim.sendMessage(commandSender, """
-                    Eye of Nemesis version %s
+                    %sEye of Nemesis%s version %s%s%s
                     Usage: '/eye <command>'
                     Use '/eye help' for a list of available commands
-                    """.formatted(Nemesis.getInstance().getDescription().getVersion()));
+                    """.formatted(ChatColor.AQUA, ChatColor.WHITE, ChatColor.GRAY, Nemesis.getInstance().getDescription().getVersion(), ChatColor.WHITE));
         } else {
             Subcommand sub = Commands.get(strings[0].toLowerCase());
             if (sub == null) {

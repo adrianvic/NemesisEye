@@ -1,7 +1,7 @@
 package io.github.adrianvic.nemesiseye.policy;
 
-import java.util.List;
+import java.util.Map;
 
 public interface PolicyParser {
-    List<Policy> parse(List<?> raw);
+    Policy parse(Map<?, ?> raw);
 }
