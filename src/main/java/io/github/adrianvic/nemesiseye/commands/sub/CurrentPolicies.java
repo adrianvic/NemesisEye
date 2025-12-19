@@ -39,4 +39,9 @@ public class CurrentPolicies implements Subcommand {
     public String usage() {
         return "";
     }
+
+    @Override
+    public String permission() {
+        return "nemsiseye.policies.list.self";
+    }
 }

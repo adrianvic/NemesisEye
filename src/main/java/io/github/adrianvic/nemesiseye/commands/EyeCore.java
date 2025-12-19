@@ -26,17 +26,30 @@ public class EyeCore {
                 commandSender.sendMessage("Unknown command, try '/eye help' to list available commands.");
                 return true;
             }
-            return sub.execute(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
+            else if (commandSender.hasPermission(sub.permission())) {
+                return sub.execute(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
+            } else {
+                Nemesis.getInstance().getLogger().info("does not have %s".formatted(sub.permission()));
+                Commands.sendNoPermissionError(commandSender);
+                return true;
+            }
         }
         return false;
     }
 
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String [] strings) {
         if (strings.length == 1) {
-            return new ArrayList<>(Commands.getAll().keySet());
+            Map<String, Subcommand> cmds = new HashMap<>();
+            for (Map.Entry<String, Subcommand> e : Commands.getAll().entrySet()) {
+                if (e.getValue().hasPermission(commandSender)) {
+                    cmds.put(e.getKey(), e.getValue());
+                    cmds.put(e.getKey(), e.getValue());
+                }
+            }
+            return new ArrayList<>(cmds.keySet());
         }
         Subcommand sub = Commands.get(strings[0].toLowerCase());
-        if (sub != null) {
+        if (sub != null && commandSender.hasPermission(sub.permission())) {
             return sub.onTabComplete(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
         }
         return List.of();

@@ -20,10 +20,12 @@ public class Help implements Subcommand {
             rstr.add("No commands found.");
         }
         for (Map.Entry<String, Subcommand> e : allSubcommands.entrySet()) {
-            rstr.add("""
-            %s - %s
-            Usage: /eye %s %s
-            """.formatted(e.getKey(), e.getValue().description(), e.getKey(), e.getValue()));
+            if (e.getValue().hasPermission(commandSender)) {
+                rstr.add("""
+                %s - %s
+                Usage: /eye %s %s
+                """.formatted(e.getKey(), e.getValue().description(), e.getKey(), e.getValue().usage()));
+            }
         }
 
         glim.sendMessage(commandSender, String.join("\n", rstr));
@@ -43,5 +45,10 @@ public class Help implements Subcommand {
     @Override
     public String usage() {
         return "";
+    }
+
+    @Override
+    public String permission() {
+        return "nemsiseye.help";
     }
 }

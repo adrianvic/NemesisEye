@@ -8,3 +8,12 @@ description: "Change what players can do based in custom criteria."
 commands:
   eye:
     usage: "/eye <option> (help for all available options)"
+permissions:
+  nemesiseye.reload:
+    default: op
+  nemesiseye.policy.list.all:
+    default: op
+  nemesiseye.policy.list.self:
+    default: true
+  nemesiseye.help:
+    default: true

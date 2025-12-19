@@ -1,12 +1,16 @@
 package io.github.adrianvic.nemesiseye.commands;
 
+import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.commands.sub.*;
+import io.github.adrianvic.nemesiseye.reflection.Glimmer;
+import org.bukkit.command.CommandSender;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Commands {
     private static final Map<String, Subcommand> commands = new HashMap<>();
+    private static final Glimmer glim = Nemesis.getInstance().getGlimmer();
 
     static {
         commands.put("help", new Help());
@@ -23,4 +27,9 @@ public class Commands {
     public static Subcommand get(String type) {
         return commands.get(type);
     }
+
+    public static void sendNoPermissionError(CommandSender sender) {
+        glim.sendMessage(sender, "You do not have the necessary permission to use this command.");
+    }
+
 }

@@ -32,4 +32,9 @@ public class ListPolicies implements Subcommand {
     public String usage() {
         return "";
     }
+
+    @Override
+    public String permission() {
+        return "nemsiseye.policy.list.all";
+    }
 }

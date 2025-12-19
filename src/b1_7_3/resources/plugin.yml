@@ -6,3 +6,12 @@ description: "Change what players can do based in custom criteria."
 commands:
   eye:
     description: "Run /eye help to see all available commands."
+permissions:
+  nemesiseye.reload:
+    default: op
+  nemesiseye.policy.list.all:
+    default: op
+  nemesiseye.policy.list.self:
+    default: true
+  nemesiseye.help:
+    default: true

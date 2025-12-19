@@ -47,4 +47,9 @@ public class PolicyInfo implements Subcommand {
     public String usage() {
         return "<policy>";
     }
+
+    @Override
+    public String permission() {
+        return "nemsiseye.policy.info";
+    }
 }
