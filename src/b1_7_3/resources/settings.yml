@@ -1,10 +1,29 @@
+#   __ _______    __    ___________________    _______
+#  / / \   _  \   \ \   \_   _____/\_____  \   \      \
+# / /  /  /_\  \   \ \   |    __)_  /   |   \  /   |   \
+# \ \  \  \_/   \  / /   |        \/    |    \/    |    \
+#  \_\  \_____  / /_/   /_______  /\_______  /\____|__  /
+#             \/                \/         \/         \/
+# EYE OF NEMESIS - Example config file.
+# Documentation in our wiki: https://github.com/adrianvic/NemesisEye
+
 Policies:
-    # NO SPACES
-    - name: "Block-illegal-items"
-      type: global # global / location / permission / list of types
-      nodesAllowList: false # Will deny anything that's not allowed by the nodes if set to true
-      policyAllowList: false # Inverts the policy validation logic, for example a location policy will affect all players NOT inside it's location
-      nodes:
-        - useItem:
-            value:
-              - SAND
+  - name: "Block-illegal-items" # NO SPACES
+    type: global
+    effect: DENY
+    weight: 0
+    policyAllowList: false
+    nodes:
+      - [BREAK, PLACE, HIT, INTERACT]:
+          value:
+            - BEDROCK
+  - name: "Bedrock-allow-admins"
+    type: "permission"
+    effect: ALLOW
+    weight: 1
+    permissions:
+      - "server.usebedrock"
+    nodes:
+      - [BREAK, PLACE, HIT, INTERACT]:
+          values:
+            - BEDROCK

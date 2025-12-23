@@ -6,5 +6,6 @@ public enum Action {
     HIT,
     CRAFT,
     EQUIP,
+    PLACE,
     USE_ENCHANTMENT
 }

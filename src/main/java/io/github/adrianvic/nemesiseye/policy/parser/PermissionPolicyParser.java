@@ -24,6 +24,6 @@ public class PermissionPolicyParser implements PolicyParser {
             }
         }
 
-        return new PermissionPolicy(corePolicy.name(), permissions, corePolicy.nodes(), corePolicy.nodeAllowlist(), corePolicy.policyAllowList(), corePolicy.effect(), corePolicy.weight());
+        return new PermissionPolicy(corePolicy.name(), permissions, corePolicy.nodes(), corePolicy.policyAllowList(), corePolicy.effect(), corePolicy.weight());
     }
 }

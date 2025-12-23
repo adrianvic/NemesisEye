@@ -10,6 +10,6 @@ import java.util.Map;
 public class GlobalPolicyParser implements PolicyParser {
     @Override
     public Policy parse(Core corePolicy, Map<?, ?> raw) {
-        return new GlobalPolicy(corePolicy.name(), corePolicy.nodes(), corePolicy.nodeAllowlist(), corePolicy.policyAllowList(), corePolicy.effect(), corePolicy.weight());
+        return new GlobalPolicy(corePolicy.name(), corePolicy.nodes(), corePolicy.policyAllowList(), corePolicy.effect(), corePolicy.weight());
     }
 }

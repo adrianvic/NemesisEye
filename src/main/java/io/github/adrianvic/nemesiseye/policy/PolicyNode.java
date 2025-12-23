@@ -1,15 +1,15 @@
 package io.github.adrianvic.nemesiseye.policy;
 
-import io.github.adrianvic.nemesiseye.Config;
 import io.github.adrianvic.nemesiseye.DataShifter;
-import org.apache.logging.log4j.status.StatusLogger;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.event.Event;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public record PolicyNode(List<Action> actions, List<Object> values, Effect effect) {
+public record PolicyNode(List<Action> actions, List<Object> values) {
     public static List<PolicyNode> parseNodes(List<Map<Object,Object>> raw, Effect effect) {
         List<PolicyNode> nodes = new ArrayList<>();
 
@@ -17,7 +17,6 @@ public record PolicyNode(List<Action> actions, List<Object> values, Effect effec
             for (Map.Entry<Object, Object> rawNode : m.entrySet()) {
                 List<Action> nodeActions = new ArrayList<>();
                 List<Object> nodeValues = new ArrayList<>();
-                Effect nodeEffect = effect;
 
                 if (rawNode.getKey() instanceof List<?> rawTypes && rawNode.getValue() instanceof Map<?,?> rawNodeValues) {
                     for (Object rawType : rawTypes) {
@@ -37,16 +36,13 @@ public record PolicyNode(List<Action> actions, List<Object> values, Effect effec
                             nodeValues.add(v);
                         }
                     }
-
-                    if (semiParsedNodeValue.get("effect") instanceof String efc) {
-                        Effect type = DataShifter.enumOrDefault(Effect.class, efc, null);
-                        if (type != null) {
-                            nodeEffect = type;
-                        }
-                    }
                 }
 
-                nodes.add(new PolicyNode(nodeActions, nodeValues, nodeEffect));
+                if (!nodeActions.isEmpty() && !nodeValues.isEmpty()) {
+                    PolicyNode newNode = new PolicyNode(nodeActions, nodeValues);
+                    nodes.add(newNode);
+                    System.out.println(newNode);
+                }
             }
         }
         return nodes;
@@ -58,5 +54,16 @@ public record PolicyNode(List<Action> actions, List<Object> values, Effect effec
             handlers.add(NodeHandlers.get(a));
         }
         return handlers;
+    }
+
+    public boolean matches(HumanEntity entity, Action action, Event event) {
+        if (!actions.contains(action)) return false;
+
+        for (NodeHandler handler : getHandler()) {
+            if (handler.check(entity, this, action, event)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

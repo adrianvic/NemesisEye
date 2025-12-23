@@ -1,26 +1,58 @@
+#   __ _______    __    ___________________    _______
+#  / / \   _  \   \ \   \_   _____/\_____  \   \      \
+# / /  /  /_\  \   \ \   |    __)_  /   |   \  /   |   \
+# \ \  \  \_/   \  / /   |        \/    |    \/    |    \
+#  \_\  \_____  / /_/   /_______  /\_______  /\____|__  /
+#             \/                \/         \/         \/
+# EYE OF NEMESIS - Example config file.
+# Documentation in our wiki: https://github.com/adrianvic/NemesisEye
+
 Policies:
-  - name: "Bedrock-only-admins"
+  - name: "Bedrock-allow-admins"
     type: "permission"
     effect: ALLOW
-    weight: 1
-    policyAllowList: true
+    weight: 3
     permissions:
       - "server.usebedrock"
     nodes:
-      - [INTERACT]:
+      - [BREAK, PLACE, HIT, INTERACT]:
           values:
             - BEDROCK
 
-  - name: "Beta-1.7.3-items-only" # No spaces here or else commands which need the name as argument will not work
+  - name: "Bedrock-deny"
+    type: "global"
+    effect: DENY
+    weight: 2
+    nodes:
+      - [BREAK, PLACE, HIT, INTERACT]:
+          values:
+            - BEDROCK
+
+  - name: "Block-non-beta-items" # No spaces here or else commands which need the name as argument will not work
     type: "location" # global | location | permission | playerName
-    effect: ALLOWONLY # DENY | ALLOW (overrides deny) | ALLOWONLY (allow only if met)
+    effect: DENY # DENY | ALLOW (overrides deny) | ALLOWONLY (allow only if met)
     weight: 0 # Greater weight overrides lower
     policyAllowList: false # Inverts the policy validation logic, for example a location policy will affect all players NOT inside it's location
     locations:
       - corner1: { x: 2100, y: 256, z: 1400 }
         corner2: { x: 1000, y: -64, z: 2200 }
     nodes:
-      - [INTERACT]:
+      - [INTERACT, BREAK, HIT, PLACE]:
+          values:
+            - '.*'
+      - [USE_ENCHANTMENT]:
+          values:
+            - ".*": ".*"
+
+  - name: "Allow-beta-items"
+    type: "location"
+    effect: ALLOW
+    weight: 1
+    locations:
+      - corner1: { x: 2100, y: 256, z: 1400 }
+        corner2: { x: 1000, y: -64, z: 2200 }
+    nodes:
+      - [INTERACT, BREAK, HIT, PLACE]:
           values:
             - AIR
             - STONE
@@ -38,7 +70,7 @@ Policies:
             - COBWEB
             - PISTON
             - STICKY_PISTON
-            - GRASS
+            - GRASS_BLOCK
             - DISPENSER
             - NOTE_BLOCK
             - SANDSTONE
@@ -50,7 +82,7 @@ Policies:
             - POPPY
             - DANDELION
             - "^(RED|BROWN)_MUSHROOM$"
-            - "^(OAK|COBBLESTONE)_SLAB$"
+            - "^(OAK|COBBLESTONE|SMOOTH_STONE)_SLAB$"
             - BRICK_BLOCK
             - TNT
             - BOOKSHELF
@@ -130,5 +162,3 @@ Policies:
             - MUSIC_DISK_13
             - DIRT
             - BREAD
-      - [USE_ENCHANTMENT]:
-          "flying bananas": "0"

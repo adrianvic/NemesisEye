@@ -1,5 +1,6 @@
 package io.github.adrianvic.nemesiseye.impl;
 
+import io.github.adrianvic.nemesiseye.DataShifter;
 import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.impl.commands.Eye;
 import io.github.adrianvic.nemesiseye.policy.Policy;
@@ -84,10 +85,17 @@ public class r1_21 implements Glimmer {
 
     @Override
     public boolean hasEnchantment(ItemStack item, Map<String, String> valuesmap) {
-        Map<Enchantment, Integer> enchantmentList = item.getEnchantments();
-        for (Map.Entry<Enchantment, Integer> enchantmentEntry : enchantmentList.entrySet()) {
-            for (Map.Entry<String, String> valueEntry : valuesmap.entrySet()) {
-                if (enchantmentEntry.getKey().getKey().getKey().equals(valueEntry.getKey()) && enchantmentEntry.getValue().toString().equals(valueEntry.getValue())) {
+        Map<Enchantment, Integer> enchantments = item.getEnchantments();
+
+        for (Map.Entry<Enchantment, Integer> ench : enchantments.entrySet()) {
+            String enchKey = ench.getKey().getKey().getKey();
+            String enchLevel = ench.getValue().toString();
+
+            for (Map.Entry<String, String> rule : valuesmap.entrySet()) {
+                if (
+                        DataShifter.safeMatches(rule.getKey(), enchKey) &&
+                                DataShifter.safeMatches(rule.getValue(), enchLevel)
+                ) {
                     return true;
                 }
             }

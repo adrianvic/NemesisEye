@@ -7,6 +7,7 @@ import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Config {
@@ -19,6 +20,7 @@ public class Config {
 
     public void load() {
         policies = glim.loadPoliciesFromFile(glim.loadConfigFile());
+        policies.sort(Comparator.comparingInt(Policy::weight).reversed());
     }
 
 // TODO: Implement config saving

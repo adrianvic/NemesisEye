@@ -23,6 +23,6 @@ public class PlayerNamePolicyParser implements PolicyParser {
             }
         }
 
-        return new PlayerNamePolicy(corePolicy.name(), names, corePolicy.nodes(), corePolicy.nodeAllowlist(), corePolicy.effect(), corePolicy.policyAllowList(), corePolicy.weight());
+        return new PlayerNamePolicy(corePolicy.name(), names, corePolicy.nodes(), corePolicy.effect(), corePolicy.policyAllowList(), corePolicy.weight());
     }
 }

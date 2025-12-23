@@ -22,8 +22,7 @@ public class PolicyInfo implements Subcommand {
                         Showing info for policy %s%s%s:
                         Type: %s
                         Nodes: %s
-                        %s
-                        """, ChatColor.GREEN, policy.name(), ChatColor.WHITE, policy.getClass().getTypeName(), policy.nodes().size(), policy.nodeAllowlist() ? "Is allowlist" : "Is blacklist"));
+                        """, ChatColor.GREEN, policy.name(), ChatColor.WHITE, policy.getClass().getTypeName(), policy.nodes().size()));
             }
         }
         return true;

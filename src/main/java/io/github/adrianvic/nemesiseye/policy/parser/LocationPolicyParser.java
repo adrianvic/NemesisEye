@@ -7,7 +7,6 @@ import io.github.adrianvic.nemesiseye.policy.policies.Core;
 import io.github.adrianvic.nemesiseye.policy.policies.LocationPolicy;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
