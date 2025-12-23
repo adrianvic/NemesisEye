@@ -13,7 +13,7 @@ public class useEnchantment implements NodeHandler {
     private final Glimmer glim = Nemesis.getInstance().getGlimmer();
 
     @Override
-    public boolean allows(HumanEntity entity, PolicyNode node, Action action) {
+    public boolean check(HumanEntity entity, PolicyNode node, Action action) {
         ItemStack item = glim.getItemInMainHandHumanEntity(entity);
 
         if (!glim.hasItemMeta(item)) return true;
@@ -22,6 +22,6 @@ public class useEnchantment implements NodeHandler {
         boolean matches = glim.hasEnchantment(item,
                 DataShifter.parseValueToStringMap(node.values()));
 
-        return matches ? node.isWhitelist() : !node.isWhitelist();
+        return matches;
     }
 }

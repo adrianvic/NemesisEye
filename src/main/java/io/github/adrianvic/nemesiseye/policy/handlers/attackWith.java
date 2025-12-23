@@ -13,11 +13,11 @@ public class attackWith implements NodeHandler {
     private final static Glimmer glim = Nemesis.getInstance().getGlimmer();
 
     @Override
-    public boolean allows(HumanEntity entity, PolicyNode node, Action action) {
+    public boolean check(HumanEntity entity, PolicyNode node, Action action) {
         if (action == Action.HIT) {
             for (String s : DataShifter.parseValueToStringList(node.values())) {
                 boolean matches = DataShifter.safeMatches(s, glim.getItemInMainHandHumanEntity(entity).getType().toString());
-                if (matches) return node.isWhitelist();
+                if (matches) return false;
             }
         }
         return true;

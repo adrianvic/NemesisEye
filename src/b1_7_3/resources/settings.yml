@@ -2,7 +2,8 @@ Policies:
     # NO SPACES
     - name: "Block-illegal-items"
       type: global # global / location / permission / list of types
-      allowList: false # Will deny anything that's not allowed by the nodes if set to true
+      nodesAllowList: false # Will deny anything that's not allowed by the nodes if set to true
+      policyAllowList: false # Inverts the policy validation logic, for example a location policy will affect all players NOT inside it's location
       nodes:
         - useItem:
             value:

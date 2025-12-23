@@ -13,13 +13,13 @@ public class useItem implements NodeHandler {
     private final Glimmer glim = Nemesis.getInstance().getGlimmer();
 
     @Override
-    public boolean allows(HumanEntity entity, PolicyNode node, Action action) {
+    public boolean check(HumanEntity entity, PolicyNode node, Action action) {
         String type = glim.getItemInMainHandHumanEntity(entity).getType().toString();
 
         for (String s : DataShifter.parseValueToStringList(node.values())) {
             boolean matches = DataShifter.safeMatches(s, type);
-            if (matches) return node.isWhitelist();
+            if (matches) return false;
         }
-        return !node.isWhitelist();
+        return true;
     }
 }

@@ -7,14 +7,9 @@ import org.bukkit.entity.HumanEntity;
 
 import java.util.List;
 
-public record PlayerNamePolicy(String name, List<String> playerName, List<PolicyNode> nodes, boolean nodeAllowlist, Effect effect, boolean policyAllowList, int weight) implements Policy {
-
+public record Core(String name, List<PolicyNode> nodes, boolean nodeAllowlist, boolean policyAllowList, Effect effect, int weight) implements Policy {
     @Override
     public boolean applies(HumanEntity entity) {
-        if (playerName.contains(entity.getName())) {
-            return !policyAllowList();
-        } else {
-            return policyAllowList();
-        }
+        return false;
     }
 }

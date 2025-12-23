@@ -1,13 +1,26 @@
 Policies:
-  # NO SPACES
-  - name: "Beta-1.7.3-items-only"
-    type: "location"
-    allowList: true # Will deny anything that's not allowed by the nodes if set to true
+  - name: "Bedrock-only-admins"
+    type: "permission"
+    effect: ALLOW
+    weight: 1
+    policyAllowList: true
+    permissions:
+      - "server.usebedrock"
+    nodes:
+      - [INTERACT]:
+          values:
+            - BEDROCK
+
+  - name: "Beta-1.7.3-items-only" # No spaces here or else commands which need the name as argument will not work
+    type: "location" # global | location | permission | playerName
+    effect: ALLOWONLY # DENY | ALLOW (overrides deny) | ALLOWONLY (allow only if met)
+    weight: 0 # Greater weight overrides lower
+    policyAllowList: false # Inverts the policy validation logic, for example a location policy will affect all players NOT inside it's location
     locations:
       - corner1: { x: 2100, y: 256, z: 1400 }
         corner2: { x: 1000, y: -64, z: 2200 }
     nodes:
-      - useItem:
+      - [INTERACT]:
           values:
             - AIR
             - STONE
@@ -106,7 +119,7 @@ Policies:
             - FISHING_ROD
             - CLOCK
             - GLOWSTONE_DUST
-            - INK_SACw
+            - INK_SAC
             - BONE_MEAL
             - SUGAR
             - COOKIE
@@ -117,5 +130,5 @@ Policies:
             - MUSIC_DISK_13
             - DIRT
             - BREAD
-      - useEnchantment:
+      - [USE_ENCHANTMENT]:
           "flying bananas": "0"

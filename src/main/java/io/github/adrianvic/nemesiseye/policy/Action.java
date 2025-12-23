@@ -5,5 +5,6 @@ public enum Action {
     BREAK,
     HIT,
     CRAFT,
-    EQUIP
+    EQUIP,
+    USE_ENCHANTMENT
 }

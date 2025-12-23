@@ -78,4 +78,15 @@ public class DataShifter {
 
         return boxes;
     }
+
+    public static <T extends Enum<T>> T enumOrDefault(Class<T> type, String string, T def) {
+        try {
+            return Enum.valueOf(type, string);
+        } catch (IllegalArgumentException e) {
+            return def;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return def;
+        }
+    }
 }
