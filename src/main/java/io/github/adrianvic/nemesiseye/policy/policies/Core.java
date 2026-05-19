@@ -7,16 +7,9 @@ import org.bukkit.entity.HumanEntity;
 
 import java.util.List;
 
-public record PermissionPolicy(String name, List<String> worlds, List<String> permissions, List<PolicyNode> nodes, boolean policyAllowList, Effect effect, int weight) implements Policy {
-
+public record Core(String name, List<String> worlds, List<PolicyNode> nodes, boolean nodeAllowlist, boolean policyAllowList, Effect effect, int weight) implements Policy {
     @Override
     public boolean applies(HumanEntity entity) {
-        for (String perm : permissions) {
-            if (entity.hasPermission(perm)) {
-                return true;
-            }
-        }
-
         return false;
     }
 }

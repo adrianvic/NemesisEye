@@ -1,7 +1,8 @@
 package io.github.adrianvic.nemesiseye.policy;
 
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.event.Event;
 
 public interface NodeHandler {
-    boolean allows(HumanEntity entity, PolicyNode node, Action action);
+    boolean check(HumanEntity entity, PolicyNode node, Action action, Event event);
 }

@@ -1,7 +1,7 @@
 name: "Eye-of-Nemesis"
 version: ${version}
 main: io.github.adrianvic.nemesiseye.Nemesis
-api-version: '1.21'
+api-version: '1.13'
 author: 'Adrian Victor'
 website: "https://github.io/adrianvic/NemesisEye"
 description: "Change what players can do based in custom criteria."

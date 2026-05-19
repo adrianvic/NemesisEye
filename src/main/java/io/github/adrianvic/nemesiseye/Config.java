@@ -1,24 +1,28 @@
 package io.github.adrianvic.nemesiseye;
 
 import io.github.adrianvic.nemesiseye.policy.Policy;
+import io.github.adrianvic.nemesiseye.policy.PolicyNode;
+import io.github.adrianvic.nemesiseye.policy.policies.GlobalPolicy;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Config {
     private static Config instance = new Config();
     private final Glimmer glim = Nemesis.getInstance().getGlimmer();
     private File file;
-
     private List<Policy> policies = new ArrayList<>();
 
     private Config() {}
 
     public void load() {
         policies = glim.loadPoliciesFromFile(glim.loadConfigFile());
+        policies.sort(Comparator.comparingInt(Policy::weight).reversed());
     }
+
 // TODO: Implement config saving
 //
 //    public void save() {
