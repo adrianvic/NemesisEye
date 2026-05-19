@@ -11,11 +11,11 @@ import java.util.List;
 public class Validator {
     public static boolean can(HumanEntity entity, List<Action> actions, Event event) {
         for (Action action : actions) {
-            System.out.println(action);
             if (!can(entity, action, event)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -24,7 +24,6 @@ public class Validator {
         boolean allowed = false;
 
         for (Policy policy : getPoliciesForEntity(entity)) {
-
             boolean matches = policy.matches(entity, action, event);
 
             switch (policy.effect()) {
@@ -38,10 +37,6 @@ public class Validator {
             }
         }
 
-        if (restricted) {
-            return allowed;
-        }
-
         return true;
     }
 
@@ -49,9 +44,11 @@ public class Validator {
     public static List<Policy> getPoliciesForEntity(HumanEntity entity) {
         List<Policy> ps = Config.getInstance().getPolicies();
         List<Policy> result = new ArrayList<>();
+
         for (Policy policy : ps) {
             if (policy.applies(entity)) result.add(policy);
         }
+
         return result;
     }
 }

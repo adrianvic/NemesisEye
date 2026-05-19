@@ -10,6 +10,7 @@
 Policies:
   - name: "Bedrock-allow-admins"
     type: "permission"
+    worlds: [world]
     effect: ALLOW
     weight: 3
     permissions:
@@ -21,6 +22,7 @@ Policies:
 
   - name: "Bedrock-deny"
     type: "global"
+    worlds: [world]
     effect: DENY
     weight: 2
     nodes:
@@ -31,11 +33,14 @@ Policies:
   - name: "Block-non-beta-items" # No spaces here or else commands which need the name as argument will not work
     type: "location" # global | location | permission | playerName
     effect: DENY # DENY | ALLOW (overrides deny) | ALLOWONLY (allow only if met)
+    worlds: [world]
     weight: 0 # Greater weight overrides lower
     policyAllowList: false # Inverts the policy validation logic, for example a location policy will affect all players NOT inside it's location
     locations:
-      - corner1: { x: 2100, y: 256, z: 1400 }
-        corner2: { x: 1000, y: -64, z: 2200 }
+      worlds: [world]
+      coordinates:
+        - corner1: { x: 2100, y: 256, z: 1400 }
+          corner2: { x: 1000, y: -64, z: 2200 }
     nodes:
       - [INTERACT, BREAK, HIT, PLACE]:
           values:
@@ -48,9 +53,11 @@ Policies:
     type: "location"
     effect: ALLOW
     weight: 1
+    worlds: [world]
     locations:
-      - corner1: { x: 2100, y: 256, z: 1400 }
-        corner2: { x: 1000, y: -64, z: 2200 }
+      coordinates:
+        - corner1: { x: 2100, y: 256, z: 1400 }
+          corner2: { x: 1000, y: -64, z: 2200 }
     nodes:
       - [INTERACT, BREAK, HIT, PLACE]:
           values:

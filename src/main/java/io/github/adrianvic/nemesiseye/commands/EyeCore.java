@@ -29,7 +29,7 @@ public class EyeCore {
             else if (commandSender.hasPermission(sub.permission())) {
                 return sub.execute(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
             } else {
-                Nemesis.getInstance().getLogger().info("does not have %s".formatted(sub.permission()));
+                // Nemesis.getInstance().getLogger().info("does not have %s".formatted(sub.permission()));
                 Commands.sendNoPermissionError(commandSender);
                 return true;
             }

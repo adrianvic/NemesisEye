@@ -89,6 +89,25 @@ tasks.register("buildAll") {
     dependsOn(tasks.withType<Jar>())
 }
 
+tasks.register<Jar>("shadowJar") {
+    from(sourceSets["main"].output)
+    mcVersions.forEach { ver ->
+        from(sourceSets[ver].output)
+    }
+
+    // This is kinda gross and, essentially, we shouldn't have it here...
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    archiveClassifier.set("all-implementations")
+    archiveVersion.set(project.version.toString())
+
+    manifest {
+        attributes(
+            "Implemented-Versions" to mcVersions.joinToString(",")
+        )
+    }
+}
+
 /* ----------------------------------------- */
 /*              JAVA SETTINGS                */
 /* ----------------------------------------- */
@@ -103,4 +122,18 @@ tasks.withType<JavaCompile> {
 
 tasks.runServer {
     minecraftVersion("1.21")
+    downloadPlugins {
+        modrinth("viaversion", "5.7.0")
+        modrinth("luckperms", "v5.5.17-bukkit")
+    }
+}
+
+tasks.register("runServerClean") {
+    doFirst {
+        exec {
+            commandLine("rm", "run/plugins/Eye-of-Nemesis/settings.yml")
+        }
+    }
+
+    dependsOn("runServer")
 }

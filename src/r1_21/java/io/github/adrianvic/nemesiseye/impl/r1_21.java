@@ -48,7 +48,6 @@ public class r1_21 implements Glimmer {
 
         for (Map<?, ?> policyMap : rawPolicies) {
             if (policyMap.get("type") != null && policyMap.get("type") instanceof String type) {
-                System.out.println(type);
                 allPolicies.add(PolicyParsers.get(type).parse(policyMap));
             }
         }

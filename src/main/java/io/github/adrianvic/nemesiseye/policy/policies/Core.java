@@ -7,7 +7,7 @@ import org.bukkit.entity.HumanEntity;
 
 import java.util.List;
 
-public record Core(String name, List<PolicyNode> nodes, boolean nodeAllowlist, boolean policyAllowList, Effect effect, int weight) implements Policy {
+public record Core(String name, List<String> worlds, List<PolicyNode> nodes, boolean nodeAllowlist, boolean policyAllowList, Effect effect, int weight) implements Policy {
     @Override
     public boolean applies(HumanEntity entity) {
         return false;

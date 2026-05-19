@@ -41,7 +41,6 @@ public record PolicyNode(List<Action> actions, List<Object> values) {
                 if (!nodeActions.isEmpty() && !nodeValues.isEmpty()) {
                     PolicyNode newNode = new PolicyNode(nodeActions, nodeValues);
                     nodes.add(newNode);
-                    System.out.println(newNode);
                 }
             }
         }
@@ -57,13 +56,17 @@ public record PolicyNode(List<Action> actions, List<Object> values) {
     }
 
     public boolean matches(HumanEntity entity, Action action, Event event) {
-        if (!actions.contains(action)) return false;
-
-        for (NodeHandler handler : getHandler()) {
-            if (handler.check(entity, this, action, event)) {
-                return true;
-            }
+        if (!actions.contains(action)) {
+            return false;
         }
-        return false;
+
+        NodeHandler handler = NodeHandlers.get(action);
+
+        if (handler == null) {
+            return false;
+        }
+
+        boolean result = handler.check(entity, this, action, event);
+        return result;
     }
 }

@@ -8,11 +8,13 @@ import org.bukkit.entity.HumanEntity;
 
 import java.util.List;
 
-public record LocationPolicy(String name, List<Glimmer.Box> locations, List<PolicyNode> nodes, boolean nodeAllowlist, boolean policyAllowList, Effect effect, int weight) implements Policy {
+public record LocationPolicy(String name, List<String> worlds, List<Glimmer.Box> locations, List<PolicyNode> nodes, boolean nodeAllowlist, boolean policyAllowList, Effect effect, int weight) implements Policy {
     @Override
     public boolean applies(HumanEntity entity) {
         for (Glimmer.Box box : locations) {
-            if (box.contains(entity.getLocation().toVector())) return !policyAllowList;
+            if (box.contains(entity.getLocation().toVector(), entity.getWorld())) {
+                return !policyAllowList;
+            }
         }
         return policyAllowList;
     }

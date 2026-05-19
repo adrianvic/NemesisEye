@@ -13,7 +13,20 @@ public interface PolicyParser {
         boolean nodesAllowList = Boolean.TRUE.equals(raw.get("nodesAllowList"));
         Effect effect = DataShifter.enumOrDefault(Effect.class, (String) raw.get("effect"), Effect.DENY);
         String name = (String) raw.get("name");
-        int weight = (int) raw.get("weight");
+        Integer weightObj = (Integer) raw.get("weight");
+        int weight = weightObj != null ? weightObj : 0;
+
+        // Worlds
+        List<String> worlds = new ArrayList<>();
+        if (raw.get("worlds") instanceof List<?> list) {
+            for (Object object : list) {
+                if (object instanceof String result) {
+                    worlds.add(result);
+                }
+            }
+        } else {
+            worlds.add("world");
+        }
 
         // Nodes
         Object rawNodes = raw.get("nodes");
@@ -27,7 +40,7 @@ public interface PolicyParser {
         }
 
         List<PolicyNode> nodes = PolicyNode.parseNodes(nodeList, effect);
-        return parse(new Core(name, nodes, nodesAllowList, policyAllowList, effect, weight), raw);
+        return parse(new Core(name, worlds, nodes, nodesAllowList, policyAllowList, effect, weight), raw);
     }
 
     Policy parse(Core corePolicy, Map<?, ?> raw);

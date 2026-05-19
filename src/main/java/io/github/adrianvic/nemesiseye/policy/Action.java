@@ -4,8 +4,9 @@ public enum Action {
     INTERACT,
     BREAK,
     HIT,
-    CRAFT,
+    // TODO CRAFT,
     EQUIP,
     PLACE,
-    USE_ENCHANTMENT
+    USE_ENCHANTMENT,
+    GLYDE
 }

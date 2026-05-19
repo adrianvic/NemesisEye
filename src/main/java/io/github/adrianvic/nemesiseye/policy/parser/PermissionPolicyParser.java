@@ -1,7 +1,6 @@
 package io.github.adrianvic.nemesiseye.policy.parser;
 
 import io.github.adrianvic.nemesiseye.policy.Policy;
-import io.github.adrianvic.nemesiseye.policy.PolicyNode;
 import io.github.adrianvic.nemesiseye.policy.PolicyParser;
 import io.github.adrianvic.nemesiseye.policy.policies.Core;
 import io.github.adrianvic.nemesiseye.policy.policies.PermissionPolicy;
@@ -24,6 +23,6 @@ public class PermissionPolicyParser implements PolicyParser {
             }
         }
 
-        return new PermissionPolicy(corePolicy.name(), permissions, corePolicy.nodes(), corePolicy.policyAllowList(), corePolicy.effect(), corePolicy.weight());
+        return new PermissionPolicy(corePolicy.name(), corePolicy.worlds(), permissions, corePolicy.nodes(), corePolicy.policyAllowList(), corePolicy.effect(), corePolicy.weight());
     }
 }
