@@ -1,6 +1,7 @@
 name: Build
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'src/**'
@@ -11,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: "arch-linux"
     env:
       NEMESIS_VERSION_NAME: "autobuild-${{ github.sha }}"
       NEMESIS_BUILD_CHANNEL: "autobuild"
@@ -38,6 +39,6 @@ jobs:
 
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v6.0.0
+        uses: actions/upload-artifact@v3
         with:
           path: build/libs/*.jar
