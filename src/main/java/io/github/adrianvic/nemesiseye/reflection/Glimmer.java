@@ -26,6 +26,7 @@ public interface Glimmer {
     boolean hasItemMeta(ItemStack item);
     boolean hasEnchantment(ItemStack item, Map<String, String> valuesmap);
     boolean hasAnyEnchantment(ItemStack itemStack);
+    boolean isArmor(ItemStack item);
     ItemStack getItemInMainHandHumanEntity(HumanEntity entity);
 
     // Commands

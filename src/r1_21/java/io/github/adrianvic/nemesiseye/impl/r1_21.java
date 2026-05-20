@@ -105,4 +105,19 @@ public class r1_21 implements Glimmer {
     public boolean hasAnyEnchantment(ItemStack item) {
         return !(item.getItemMeta().getEnchants().isEmpty());
     }
+
+    @Override
+    public boolean isArmor(ItemStack item) {
+        if (item == null || item.getType().isAir()) {
+           return false;
+        }
+
+        String name = item.getType().name();
+
+        return name.endsWith("_HELMET")
+                || name.endsWith("_CHESTPLATE")
+                || name.endsWith("_LEGGINGS")
+                || name.endsWith("_BOOTS")
+                || item.getType() == org.bukkit.Material.ELYTRA;
+    }
 }

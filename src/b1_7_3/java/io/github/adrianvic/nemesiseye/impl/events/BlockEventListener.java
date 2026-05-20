@@ -1,4 +1,4 @@
-package io.github.adrianvic.nemesiseye.impl;
+package io.github.adrianvic.nemesiseye.impl.events;
 
 import io.github.adrianvic.nemesiseye.Events;
 import org.bukkit.event.block.BlockBreakEvent;

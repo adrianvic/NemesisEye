@@ -9,18 +9,18 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockPlaceEvent;
 
+import java.util.List;
+
 public class BePlaced implements NodeHandler {
     @Override
     public boolean check(LivingEntity entity, PolicyNode node, Action action, Event event) {
         if (event instanceof BlockPlaceEvent bpe) {
             String type = bpe.getBlock().getType().toString();
+            List<String> parsedValue = DataShifter.parseValueToStringList(node.values());
 
-            for (String s : DataShifter.parseValueToStringList(node.values())) {
-                if (DataShifter.safeMatches(s, type)) {
-                    return true;
-                }
-            }
+            return DataShifter.safeMatches(parsedValue, type);
         }
+
         return false;
     }
 }

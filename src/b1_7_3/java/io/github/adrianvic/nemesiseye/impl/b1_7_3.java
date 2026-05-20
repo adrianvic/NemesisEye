@@ -2,9 +2,13 @@ package io.github.adrianvic.nemesiseye.impl;
 
 import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.impl.commands.Eye;
+import io.github.adrianvic.nemesiseye.impl.events.BlockEventListener;
+import io.github.adrianvic.nemesiseye.impl.events.EntityEventListener;
+import io.github.adrianvic.nemesiseye.impl.events.PlayerEventListener;
 import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.policy.PolicyParsers;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
@@ -98,5 +102,19 @@ public class b1_7_3 implements Glimmer {
     @Override
     public boolean hasAnyEnchantment(ItemStack itemStack) {
         return false;
+    }
+
+    @Override
+    public boolean isArmor(ItemStack item) {
+        if (item == null || item.getType() == Material.AIR) {
+            return false;
+        }
+
+        String name = item.getType().name();
+
+        return name.endsWith("_HELMET")
+                || name.endsWith("_CHESTPLATE")
+                || name.endsWith("_LEGGINGS")
+                || name.endsWith("_BOOTS");
     }
 }
