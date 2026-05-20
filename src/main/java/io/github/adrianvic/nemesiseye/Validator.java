@@ -3,6 +3,7 @@ package io.github.adrianvic.nemesiseye;
 import io.github.adrianvic.nemesiseye.policy.Action;
 import io.github.adrianvic.nemesiseye.policy.Policy;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Validator {
         return true;
     }
 
-    public static boolean can(HumanEntity entity, Action action, Event event) {
+    public static boolean can(LivingEntity entity, Action action, Event event) {
         boolean restricted = false;
         boolean allowed = false;
 
@@ -41,7 +42,7 @@ public class Validator {
     }
 
 
-    public static List<Policy> getPoliciesForEntity(HumanEntity entity) {
+    public static List<Policy> getPoliciesForEntity(LivingEntity entity) {
         List<Policy> ps = Config.getInstance().getPolicies();
         List<Policy> result = new ArrayList<>();
 

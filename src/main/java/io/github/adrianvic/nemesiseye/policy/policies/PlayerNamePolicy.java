@@ -4,13 +4,14 @@ import io.github.adrianvic.nemesiseye.policy.Effect;
 import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 
 import java.util.List;
 
 public record PlayerNamePolicy(String name, List<String> worlds, List<String> playerName, List<PolicyNode> nodes, Effect effect, boolean policyAllowList, int weight) implements Policy {
 
     @Override
-    public boolean applies(HumanEntity entity) {
+    public boolean applies(LivingEntity entity) {
         if (playerName.contains(entity.getName())) {
             return !policyAllowList();
         } else {

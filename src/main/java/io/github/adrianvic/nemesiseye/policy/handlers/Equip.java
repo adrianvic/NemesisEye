@@ -6,6 +6,7 @@ import io.github.adrianvic.nemesiseye.policy.Action;
 import io.github.adrianvic.nemesiseye.policy.NodeHandler;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.ClickType;
@@ -13,10 +14,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
-public class equip implements NodeHandler {
+public class Equip implements NodeHandler {
 
     @Override
-    public boolean check(HumanEntity entity, PolicyNode node, Action action, Event event) {
+    public boolean check(LivingEntity entity, PolicyNode node, Action action, Event event) {
         ItemStack item = null;
 
         if (event instanceof PlayerArmorChangeEvent e) {

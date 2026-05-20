@@ -2,6 +2,7 @@ package io.github.adrianvic.nemesiseye.policy;
 
 import io.github.adrianvic.nemesiseye.DataShifter;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public record PolicyNode(List<Action> actions, List<Object> values) {
         return handlers;
     }
 
-    public boolean matches(HumanEntity entity, Action action, Event event) {
+    public boolean matches(LivingEntity entity, Action action, Event event) {
         if (!actions.contains(action)) {
             return false;
         }

@@ -7,19 +7,22 @@ import io.github.adrianvic.nemesiseye.policy.NodeHandler;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 
-public class useItem implements NodeHandler {
+public class UseItem implements NodeHandler {
 
     private final Glimmer glim = Nemesis.getInstance().getGlimmer();
 
     @Override
-    public boolean check(HumanEntity entity, PolicyNode node, Action action, Event event) {
-        String type = glim.getItemInMainHandHumanEntity(entity).getType().toString();
+    public boolean check(LivingEntity entity, PolicyNode node, Action action, Event event) {
+        if (entity instanceof HumanEntity e) {
+            String type = glim.getItemInMainHandHumanEntity(e).getType().toString();
 
-        for (String s : DataShifter.parseValueToStringList(node.values())) {
-            if (DataShifter.safeMatches(s, type)) {
-                return true;
+            for (String s : DataShifter.parseValueToStringList(node.values())) {
+                if (DataShifter.safeMatches(s, type)) {
+                    return true;
+                }
             }
         }
 

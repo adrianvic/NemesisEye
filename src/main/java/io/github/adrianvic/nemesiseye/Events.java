@@ -6,6 +6,7 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -87,6 +88,10 @@ public class Events {
         if (!Validator.can(entity, Action.EQUIP, event)) {
             event.setCancelled(true);
         }
+    }
+
+    public static void onCreatureSpawnEvent(CreatureSpawnEvent event) {
+        event.setCancelled(!Validator.can(event.getEntity(), Action.SPAWN, event));
     }
 
     private static boolean isArmorEquipAttempt(InventoryClickEvent event) {

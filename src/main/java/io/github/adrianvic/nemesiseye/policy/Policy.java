@@ -1,6 +1,7 @@
 package io.github.adrianvic.nemesiseye.policy;
 
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface Policy {
     String name();
     List<PolicyNode> nodes();
     boolean policyAllowList();
-    boolean applies(HumanEntity entity);
+    boolean applies(LivingEntity entity);
     Effect effect();
     int weight();
     List<String> worlds();
@@ -18,7 +19,7 @@ public interface Policy {
         nodes().add(node);
     }
 
-    default boolean matches(HumanEntity entity, Action action, Event event) {
+    default boolean matches(LivingEntity entity, Action action, Event event) {
         if (!worlds().contains(entity.getWorld().getName())) {
             return false;
         }

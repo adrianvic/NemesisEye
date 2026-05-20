@@ -8,5 +8,6 @@ public enum Action {
     EQUIP,
     PLACE,
     USE_ENCHANTMENT,
-    GLYDE
+    GLYDE,
+    SPAWN
 }

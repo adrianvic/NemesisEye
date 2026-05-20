@@ -5,12 +5,13 @@ import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
 import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
 
 import java.util.List;
 
 public record LocationPolicy(String name, List<String> worlds, List<Glimmer.Box> locations, List<PolicyNode> nodes, boolean nodeAllowlist, boolean policyAllowList, Effect effect, int weight) implements Policy {
     @Override
-    public boolean applies(HumanEntity entity) {
+    public boolean applies(LivingEntity entity) {
         for (Glimmer.Box box : locations) {
             if (box.contains(entity.getLocation().toVector(), entity.getWorld())) {
                 return !policyAllowList;

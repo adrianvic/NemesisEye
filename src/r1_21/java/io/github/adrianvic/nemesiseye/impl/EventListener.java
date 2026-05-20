@@ -6,7 +6,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -36,5 +38,8 @@ public class EventListener implements Listener {
     public void onPlayerMoveEvent(PlayerMoveEvent event) { Events.onPlayerMoveEvent(event); }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-    public void onInventoryClickEvent(InventoryClickEvent event) { Events.onInventoryClickEvent(event);}
+    public void onInventoryClickEvent(InventoryClickEvent event) { Events.onInventoryClickEvent(event); }
+
+    @EventHandler
+    public void onCreatureSpawnEvent(CreatureSpawnEvent event) { Events.onCreatureSpawnEvent(event); }
 }

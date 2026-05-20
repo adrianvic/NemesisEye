@@ -9,13 +9,14 @@ public class NodeHandlers {
     private static final Map<Action, NodeHandler> handlers = new HashMap<>();
     
     static {
-        handlers.put(Action.HIT, new useItem());
-        handlers.put(Action.PLACE, new bePlaced());
-        handlers.put(Action.INTERACT, new useItem());
-        handlers.put(Action.USE_ENCHANTMENT, new useEnchantment());
-        handlers.put(Action.GLYDE, new glyde());
-        handlers.put(Action.EQUIP, new equip());
-        handlers.put(Action.BREAK, new useItem()); // TODO: implement place handler
+        handlers.put(Action.HIT, new UseItem());
+        handlers.put(Action.PLACE, new BePlaced());
+        handlers.put(Action.INTERACT, new UseItem());
+        handlers.put(Action.USE_ENCHANTMENT, new UseEnchantment());
+        handlers.put(Action.GLYDE, new Glyde());
+        handlers.put(Action.EQUIP, new Equip());
+        handlers.put(Action.SPAWN, new Spawn());
+        handlers.put(Action.BREAK, new UseItem()); // TODO: implement place handler
     }
     
     public static NodeHandler get(Action type) {

@@ -7,11 +7,20 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class DataShifter {
-
     public static boolean safeMatches(String expression, String against) {
         String cleanPattern = expression.trim();
         Pattern pattern = Pattern.compile(cleanPattern, Pattern.CASE_INSENSITIVE);
         return pattern.matcher(against).matches();
+    }
+
+    public static boolean safeMatches(List<String> expressions, String against) {
+        for (String s : expressions) {
+            if (DataShifter.safeMatches(s, against)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static List<String> parseValueToStringList(List<Object> values) {
