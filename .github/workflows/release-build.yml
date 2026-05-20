@@ -32,9 +32,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew buildAll
 
-      - name: Upload JARs to release
-        uses: softprops/action-gh-release@v2.5.0
-        with:
-          files: build/libs/*.jar
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
+      - name: Upload artifacts to release
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.FORGEJO_TOKEN }}" \
+            -H "Content-Type: application/octet-stream" \
+            https://inspiran.beetal-castor.ts.net/git/api/v1/repos/${{ github.repository }}/releases/tags/${{ github.ref_name }}/assets \
+            --data-binary @build/libs/your-artifact.jar
