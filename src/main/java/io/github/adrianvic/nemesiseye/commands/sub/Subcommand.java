@@ -1,5 +1,6 @@
 package io.github.adrianvic.nemesiseye.commands.sub;
 
+import io.github.adrianvic.nemesiseye.Nemesis;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 
@@ -13,6 +14,6 @@ public interface Subcommand {
     List<String> onTabComplete(CommandSender sender, String[] strings);
     String permission();
     default boolean hasPermission(CommandSender sender) {
-        return sender.hasPermission(permission());
+        return Nemesis.getInstance().getGlimmer().hasPermission(sender, permission());
     }
 }

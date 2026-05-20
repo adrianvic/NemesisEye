@@ -19,6 +19,7 @@ public class UseEnchantment implements NodeHandler {
         if (entity instanceof HumanEntity e) {
             ItemStack item = glim.getItemInMainHandHumanEntity(e);
 
+            if (glim.isAir(item)) return false;
             if (!glim.hasItemMeta(item)) return false;
             if (!glim.hasAnyEnchantment(item)) return false;
 

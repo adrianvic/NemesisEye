@@ -19,7 +19,10 @@ public class UseItem implements NodeHandler {
     @Override
     public boolean check(LivingEntity entity, PolicyNode node, Action action, Event event) {
         if (entity instanceof HumanEntity e) {
-            String type = glim.getItemInMainHandHumanEntity(e).getType().toString();
+            org.bukkit.inventory.ItemStack item = glim.getItemInMainHandHumanEntity(e);
+            if (glim.isAir(item)) return false;
+
+            String type = item.getType().toString();
             List<String> parsedValue = DataShifter.parseValueToStringList(node.values());
 
             return DataShifter.safeMatches(parsedValue, type);

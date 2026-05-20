@@ -27,7 +27,17 @@ public interface Glimmer {
     boolean hasEnchantment(ItemStack item, Map<String, String> valuesmap);
     boolean hasAnyEnchantment(ItemStack itemStack);
     boolean isArmor(ItemStack item);
+    boolean isAir(ItemStack item);
     ItemStack getItemInMainHandHumanEntity(HumanEntity entity);
+
+    // Players
+    boolean isGliding(org.bukkit.entity.Player player);
+    void setGliding(org.bukkit.entity.Player player, boolean gliding);
+    boolean hasPermission(org.bukkit.command.CommandSender sender, String permission);
+
+    // Events
+    boolean isArmorEquipAttempt(org.bukkit.event.Event event);
+    ItemStack getEquippedItem(org.bukkit.event.Event event);
 
     // Commands
     void sendMessage(CommandSender commandSender, String text);

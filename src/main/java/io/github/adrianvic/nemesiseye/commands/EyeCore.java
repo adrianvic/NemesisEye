@@ -26,7 +26,7 @@ public class EyeCore {
                 commandSender.sendMessage("Unknown command, try '/eye help' to list available commands.");
                 return true;
             }
-            else if (commandSender.hasPermission(sub.permission())) {
+            else if (glim.hasPermission(commandSender, sub.permission())) {
                 return sub.execute(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
             } else {
                 // Nemesis.getInstance().getLogger().info("does not have %s".formatted(sub.permission()));
@@ -41,7 +41,7 @@ public class EyeCore {
         if (strings.length == 1) {
             Map<String, Subcommand> cmds = new HashMap<>();
             for (Map.Entry<String, Subcommand> e : Commands.getAll().entrySet()) {
-                if (e.getValue().hasPermission(commandSender)) {
+                if (glim.hasPermission(commandSender, e.getValue().permission())) {
                     cmds.put(e.getKey(), e.getValue());
                     cmds.put(e.getKey(), e.getValue());
                 }
@@ -49,7 +49,7 @@ public class EyeCore {
             return new ArrayList<>(cmds.keySet());
         }
         Subcommand sub = Commands.get(strings[0].toLowerCase());
-        if (sub != null && commandSender.hasPermission(sub.permission())) {
+        if (sub != null && glim.hasPermission(commandSender, sub.permission())) {
             return sub.onTabComplete(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
         }
         return List.of();

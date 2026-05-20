@@ -77,6 +77,38 @@ public class b1_7_3 implements Glimmer {
     }
 
     @Override
+    public boolean isAir(ItemStack item) {
+        return item == null || item.getType() == Material.AIR;
+    }
+
+    @Override
+    public boolean isGliding(org.bukkit.entity.Player player) {
+        return false;
+    }
+
+    @Override
+    public void setGliding(org.bukkit.entity.Player player, boolean gliding) {
+    }
+
+    @Override
+    public boolean hasPermission(org.bukkit.command.CommandSender sender, String permission) {
+        if (sender instanceof org.bukkit.entity.Player p) {
+            return p.isOp();
+        }
+        return true; // Console always has permission
+    }
+
+    @Override
+    public boolean isArmorEquipAttempt(org.bukkit.event.Event event) {
+        return false;
+    }
+
+    @Override
+    public ItemStack getEquippedItem(org.bukkit.event.Event event) {
+        return null;
+    }
+
+    @Override
     public void sendMessage(CommandSender commandSender, String text) {
         String[] lines = text.split("\\r?\\n");
         for (String line : lines) {

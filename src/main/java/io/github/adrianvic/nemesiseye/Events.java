@@ -1,16 +1,14 @@
 package io.github.adrianvic.nemesiseye;
 
 import io.github.adrianvic.nemesiseye.policy.Action;
-import org.bukkit.Material;
+import io.github.adrianvic.nemesiseye.reflection.Glimmer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +16,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 public class Events {
+
+    private static Glimmer g() {
+        return Nemesis.getInstance().getGlimmer();
+    }
 
     public static void onBlockBreak(BlockBreakEvent event) {
         event.setCancelled(
@@ -32,12 +34,12 @@ public class Events {
     public static void onInteractionEvent(PlayerInteractEvent event) {
         ItemStack item = event.getItem();
 
-        if (item == null || item.getType().isAir()) {
+        if (g().isAir(item)) {
             return;
         }
 
         // Right-click armor equipping
-        if (isArmor(item)
+        if (g().isArmor(item)
                 && !Validator.can(event.getPlayer(), Action.EQUIP, event)) {
             event.setCancelled(true);
             return;
@@ -68,18 +70,18 @@ public class Events {
     }
 
     public static void onPlayerMoveEvent(PlayerMoveEvent event) {
-        if (event.getPlayer().isGliding()
+        if (g().isGliding(event.getPlayer())
                 && !Validator.can(
                 event.getPlayer(),
                 List.of(Action.GLYDE),
                 event
         )) {
-            event.getPlayer().setGliding(false);
+            g().setGliding(event.getPlayer(), false);
         }
     }
 
     public static void onInventoryClickEvent(InventoryClickEvent event) {
-        if (!isArmorEquipAttempt(event)) {
+        if (!g().isArmorEquipAttempt(event)) {
             return;
         }
 
@@ -92,40 +94,5 @@ public class Events {
 
     public static void onCreatureSpawnEvent(CreatureSpawnEvent event) {
         event.setCancelled(!Validator.can(event.getEntity(), Action.SPAWN, event));
-    }
-
-    private static boolean isArmorEquipAttempt(InventoryClickEvent event) {
-        if (event.getSlotType() == InventoryType.SlotType.ARMOR) {
-            return true;
-        }
-
-        if (event.isShiftClick()) {
-            return isArmor(event.getCurrentItem());
-        }
-
-        if (event.getClick() == ClickType.NUMBER_KEY
-                && event.getSlotType() == InventoryType.SlotType.ARMOR
-                && event.getWhoClicked() instanceof Player player) {
-            return isArmor(
-                    player.getInventory().getItem(event.getHotbarButton())
-            );
-        }
-
-        return false;
-    }
-
-    private static boolean isArmor(ItemStack item) {
-        if (item == null || item.getType().isAir()) {
-            return false;
-        }
-
-        Material type = item.getType();
-        String name = type.name();
-
-        return name.endsWith("_HELMET")
-                || name.endsWith("_CHESTPLATE")
-                || name.endsWith("_LEGGINGS")
-                || name.endsWith("_BOOTS")
-                || type == Material.ELYTRA;
     }
 }

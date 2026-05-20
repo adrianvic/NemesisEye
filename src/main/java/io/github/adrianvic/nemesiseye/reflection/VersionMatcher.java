@@ -94,54 +94,67 @@ public class VersionMatcher {
     }
 
     public Glimmer loadGlim() {
-        String rawVersion;
+        String rawVersion = null;
         try {
-            rawVersion = Bukkit.getMinecraftVersion();   // returns something like "1.21.10"
-        } catch (NoSuchMethodError e) {
-            return betaLoadGlim();
+            rawVersion = Bukkit.getMinecraftVersion();
+        } catch (NoSuchMethodError ignored) {}
+
+        if (rawVersion == null || rawVersion.isEmpty()) {
+            String v = Bukkit.getVersion(); // e.g. "git-Bukkit-0.0.0-1060-... (MC: 1.7.3)"
+            int start = v.lastIndexOf("MC: ");
+            if (start != -1) {
+                rawVersion = v.substring(start + 4, v.length() - 1);
+            } else {
+                rawVersion = "unknown";
+            }
         }
 
         String matchInfo = getVersion("release", rawVersion);
         if (matchInfo.isEmpty()) {
-            // TODO: Should change to something more robust, it's not beta since we have Bukkit.getMinecraftVersion()
-            return betaLoadGlim();
+            matchInfo = getVersion("beta", rawVersion);
         }
 
-        // split the returned string: "pattern|classSuffix"
-        String[] partsInfo = matchInfo.split("\\|");
-        String classSuffix = partsInfo[1];   // e.g. "r1_21"
+        if (matchInfo.isEmpty()) {
+            // Fallback to b1.7.3 if everything fails, or throw error?
+            // User said it supports b1.7.3 and 1.21.x.
+            Glimmer fallback = tryInstantiate("io.github.adrianvic.nemesiseye.impl.b1_7_3");
+            if (fallback != null) return fallback;
+            throw new IllegalStateException("No suitable implementation found for version " + rawVersion);
+        }
 
+        String[] partsInfo = matchInfo.split("\\|");
+        String classSuffix = partsInfo[1];
+
+        Glimmer glimmer = tryInstantiate("io.github.adrianvic.nemesiseye.impl." + classSuffix);
+        if (glimmer != null) return glimmer;
+
+        // Backward search for older implementations
         String[] versionParts = rawVersion.split("\\.");
         int major = parseInt(versionParts[0]);
-        int minor = parseInt(versionParts[1]);
+        int minor = versionParts.length > 1 ? parseInt(versionParts[1]) : 0;
         int patch = versionParts.length > 2 ? parseInt(versionParts[2]) : 0;
 
-        while (true) {
-            String className = "io.github.adrianvic.nemesiseye.impl." + classSuffix;
-            Glimmer glimmer = tryInstantiate(className);
-            if (glimmer != null) return glimmer;
+        while (major >= 0) {
+            while (minor >= 0) {
+                while (patch >= 0) {
+                    String className = String.format("io.github.adrianvic.nemesiseye.impl.r%d_%d_%d", major, minor, patch);
+                    glimmer = tryInstantiate(className);
+                    if (glimmer != null) return glimmer;
+                    
+                    className = String.format("io.github.adrianvic.nemesiseye.impl.r%d_%d", major, minor);
+                    glimmer = tryInstantiate(className);
+                    if (glimmer != null) return glimmer;
 
-            if (patch > 0) {
-                patch--;
-                continue;
-            }
-            if (minor > 0) {
+                    patch--;
+                }
                 minor--;
-                patch = 20;
-                continue;
+                patch = 20; // Search up to .20 patch of previous minor
             }
-            className = "io.github.adrianvic.nemesiseye.impl.r" + major + "_" + minor;
-            glimmer = tryInstantiate(className);
-            if (glimmer != null) return glimmer;
-
-            throw new IllegalStateException(
-                    "No suitable implementation found for version " + rawVersion);
+            major--;
+            minor = 30; // Search up to .30 minor of previous major
         }
-    }
 
-    private Glimmer betaLoadGlim() {
-        // Bukkit.getVersion() // returns something like "1.1.10 (MC: 1.7.3)" WEIRD
-        return tryInstantiate("io.github.adrianvic.nemesiseye.impl.b1_7_3"); // only supported beta version for now
+        throw new IllegalStateException("No suitable implementation found for version " + rawVersion);
     }
 
     private Glimmer tryInstantiate(String className) {

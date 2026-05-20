@@ -1,5 +1,6 @@
 package io.github.adrianvic.nemesiseye.policy.policies;
 
+import io.github.adrianvic.nemesiseye.Nemesis;
 import io.github.adrianvic.nemesiseye.policy.Effect;
 import io.github.adrianvic.nemesiseye.policy.Policy;
 import io.github.adrianvic.nemesiseye.policy.PolicyNode;
@@ -13,7 +14,7 @@ public record PermissionPolicy(String name, List<String> worlds, List<String> pe
     @Override
     public boolean applies(LivingEntity entity) {
         for (String perm : permissions) {
-            if (entity.hasPermission(perm)) {
+            if (Nemesis.getInstance().getGlimmer().hasPermission(entity, perm)) {
                 return true;
             }
         }

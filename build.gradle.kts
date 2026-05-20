@@ -59,9 +59,24 @@ mcVersions.forEach { ver ->
 /* ----------------------------------------- */
 
 dependencies {
-    add("compileOnly", "io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
-    add("r1_21CompileOnly", "io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT")
+    add("compileOnly", "io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    add("r1_21CompileOnly", "io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
     add("b1_7_3CompileOnly", files("libs/craftbukkit-1060.jar"))
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+    testImplementation("org.mockito:mockito-core:5.5.0")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.21:3.102.0")
+    
+    // Allow tests to see the versioned implementations
+    mcVersions.forEach { ver ->
+        testImplementation(sourceSets[ver].output)
+    }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 /* ----------------------------------------- */
