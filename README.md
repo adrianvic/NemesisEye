@@ -1,4 +1,4 @@
-<img width="1280" height="640" alt="eye_of_nemesis_social_cover" src="https://github.com/user-attachments/assets/a24bc92f-4dc2-4594-93c9-d056130f9695" />
+<img alt="eye_of_nemesis_social_cover" src="https://github.com/user-attachments/assets/a24bc92f-4dc2-4594-93c9-d056130f9695" />
 
 [![Modrinth Badge](https://img.shields.io/badge/Modrinth-Black?style=social&logo=Modrinth&logoColor=green)](https://modrinth.com/plugin/eye-of-nemesis)
 [![English Wiki Badge](https://img.shields.io/badge/English-White?style=flat-square&label=Wiki&color=black)](https://github.com/adrianvic/NemesisEye/wiki)
